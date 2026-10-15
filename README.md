@@ -4,7 +4,7 @@ A Horizontal Progression Sandbox for Legacy MMO Theorycrafting
 
 WoWPlaystyle is a browser-based design tool built to help players, modders, and theorycrafters engineer entirely new playstyles for classic MMO architectures. Instead of relying on vertical power creep or simple stat bloat, this app provides a visual canvas to design cross-discipline loadouts using existing legacy engine mechanics—what we call "Digital Duct Tape."
 
-You can access the live tool directly from your browser here: https://vercel.com/wo-wp-laystyle/wo-w-playstyle
+You can access the live tool directly from your browser here: https://wo-w-playstyle.vercel.app/
 
 ## The Concept
 
