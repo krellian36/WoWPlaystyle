@@ -58,3 +58,7 @@ npm run dev
 ```
 
 Open http://localhost:3000 in your browser.
+
+## Feedback & Community
+
+* **Read the Full Design Document:** [Modular Playstyles Design Document](./DESIGN_DOCUMENT.md)
