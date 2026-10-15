@@ -14,6 +14,8 @@ The goal isn't to make numbers bigger, but to fundamentally alter how a class in
 
 This app serves as your drafting board. Whether you want to turn a Warlock into a shape-shifting melee hybrid or a Warrior into a spatial tactician, this sandbox lets you map out the items, the crafting supply chains, and the engine workarounds required to make it happen.
 
+For an example of each class: https://github.com/krellian36/WoWPlaystyle/tree/main/Playstyle%20Examples
+
 ## Features
 
 - **Visual Tooltip Generator:** Create authentic, high-quality item tooltips for your custom gear pieces, complete with stat allocations and unique mechanical effects.
