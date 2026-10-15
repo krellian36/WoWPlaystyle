@@ -1,0 +1,168 @@
+{
+  "playstyleName": "Shaman - Harmonic Resonance Weaver",
+  "description": "Transforming the Shaman from a static buffer into an active signal processor, managing overlapping elemental frequencies and phase alignments across the battlefield.",
+  "items": [
+    {
+      "name": "Resonant Tuning Fork",
+      "rarity": "Epic",
+      "itemLevel": 645,
+      "type": "Trinket",
+      "stats": "+140 Intellect\n+115 Mastery\nEquip: Converts standard totems into frequency emitters, creating a visual pulse wave on the ground.",
+      "description": "A perfectly pitched instrument of the elements.",
+      "iconName": "inv_jewelry_talisman_04",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Striking a totem with Phase Shift causes it to emit an immediate secondary echo wave.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Earth-Singer's Signal Chain",
+        "pieces": [
+          {
+            "name": "Resonant Tuning Fork",
+            "isActive": true
+          },
+          {
+            "name": "Grounded Vestments of the Phase-Catcher",
+            "isActive": false
+          },
+          {
+            "name": "Charged Thunder-Striker's Baton",
+            "isActive": false
+          }
+        ]
+      },
+      "baseItemName": "Dormant Tuning Fork of the Ancestors",
+      "origin": {
+        "type": "Drop",
+        "details": "Drops from an elemental ascendant in a mid-tier dungeon."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Reheat and strike the tines back into perfect alignment, while mounting a resonant quartz crystal at the base to amplify the signal.",
+        "profession": "Master Blacksmith & Jewelcrafter",
+        "reagents": [
+          {
+            "name": "Resonant Quartz Crystal",
+            "quantity": 1,
+            "iconName": "inv_misc_gem_crystal_02"
+          },
+          {
+            "name": "Primal Fire",
+            "quantity": 3,
+            "iconName": "inv_elemental_primal_fire"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Grounded Vestments of the Phase-Catcher",
+      "rarity": "Epic",
+      "itemLevel": 645,
+      "type": "Chest",
+      "stats": "+130 Intellect\n+105 Haste\nEquip: Increases the radius of totem waveforms and visually illuminates the interference patterns on the ground.",
+      "description": "Woven with conductive metals to capture the storm.",
+      "iconName": "inv_chest_chain_11",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Striking a totem with Phase Shift causes it to emit an immediate secondary echo wave.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Earth-Singer's Signal Chain",
+        "pieces": [
+          {
+            "name": "Resonant Tuning Fork",
+            "isActive": false
+          },
+          {
+            "name": "Grounded Vestments of the Phase-Catcher",
+            "isActive": true
+          },
+          {
+            "name": "Charged Thunder-Striker's Baton",
+            "isActive": false
+          }
+        ]
+      },
+      "baseItemName": "Vestments of the Phase-Catcher",
+      "origin": {
+        "type": "Drop",
+        "details": "Elite elemental giant drop in an open-world storm zone."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Insulate the inner lining, and weave conductive copper wire through the scales to act as an antenna array.",
+        "profession": "Master Leatherworker & Engineer",
+        "reagents": [
+          {
+            "name": "Spool of Copper Wire",
+            "quantity": 10,
+            "iconName": "inv_misc_gear_01"
+          },
+          {
+            "name": "Insulated Leather",
+            "quantity": 6,
+            "iconName": "inv_misc_leatherscrap_08"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Charged Thunder-Striker's Baton",
+      "rarity": "Legendary",
+      "itemLevel": 660,
+      "type": "1-Handed Mace",
+      "stats": "+195 Intellect\n+140 Versatility\nEquip: Unlocks Phase Shift. Strike an active totem to violently reverse its polarity, converting heals to offensive sonic booms or vice versa.",
+      "description": "It sparks with heavy static even when held perfectly still.",
+      "iconName": "inv_mace_1h_artifactdoomhammer_d_01",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Striking a totem with Phase Shift causes it to emit an immediate secondary echo wave.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Earth-Singer's Signal Chain",
+        "pieces": [
+          {
+            "name": "Resonant Tuning Fork",
+            "isActive": false
+          },
+          {
+            "name": "Grounded Vestments of the Phase-Catcher",
+            "isActive": false
+          },
+          {
+            "name": "Charged Thunder-Striker's Baton",
+            "isActive": true
+          }
+        ]
+      },
+      "baseItemName": "Thunder-Striker's Baton",
+      "origin": {
+        "type": "Drop",
+        "details": "Raid boss drop from an elemental lord."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Infuse the wood with pure lightning, and coat the striking surface in a volatile, hardened resin that sparks upon impact.",
+        "profession": "Enchanter & Alchemist",
+        "reagents": [
+          {
+            "name": "Essence of Lightning",
+            "quantity": 4,
+            "iconName": "inv_elemental_mote_air01"
+          },
+          {
+            "name": "Volatile Resin",
+            "quantity": 2,
+            "iconName": "inv_potion_51"
+          }
+        ]
+      }
+    }
+  ]
+}

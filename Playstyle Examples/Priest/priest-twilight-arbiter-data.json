@@ -1,0 +1,173 @@
+{
+  "playstyleName": "Priest - Twilight Arbiter",
+  "description": "Moving the Priest away from the binary \"Light or Shadow\" forms into a dual-wielding manipulator of lifeforce, treating health pools as communicable vessels. The goal is to shift the Priest from a standard reactive healer or pure shadow DPS into a logistical hub of distributed damage and healing.",
+  "items": [
+    {
+      "name": "Cord of Duality",
+      "rarity": "Epic",
+      "itemLevel": 645,
+      "type": "Trinket",
+      "stats": "+130 Intellect\n+100 Spirit\nEquip: Replaces Mind Flay with Twilight Tether, allowing you to link an ally and an enemy. Damage to the enemy heals the ally, and healing the ally damages the enemy.",
+      "description": "The threads weave light and shadow into a single, unbroken cord.",
+      "iconName": "inv_jewelry_talisman_08",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Sever the Scales refunds 50% of its mana cost if it successfully executes an enemy.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Scales of Equilibrium",
+        "pieces": [
+          {
+            "name": "Cord of Duality",
+            "isActive": true
+          },
+          {
+            "name": "Mitre of the Weeping Judge",
+            "isActive": false
+          },
+          {
+            "name": "Gavel of the Final Verdict",
+            "isActive": false
+          }
+        ]
+      },
+      "baseItemName": "Frayed Cord of Duality",
+      "origin": {
+        "type": "Drop",
+        "details": "Drops from a cultist boss in a mid-tier dungeon."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Re-spin the unraveling threads using pure light and shadow essences, and attach a stabilizing onyx-and-pearl clasp.",
+        "profession": "Master Tailor & Jewelcrafter",
+        "reagents": [
+          {
+            "name": "Essence of Light",
+            "quantity": 2,
+            "iconName": "inv_elemental_primal_life"
+          },
+          {
+            "name": "Essence of Shadow",
+            "quantity": 2,
+            "iconName": "inv_elemental_primal_shadow"
+          },
+          {
+            "name": "Onyx-and-Pearl Clasp",
+            "quantity": 1,
+            "iconName": "inv_jewelry_necklace_12"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Mitre of the Weeping Judge",
+      "rarity": "Epic",
+      "itemLevel": 645,
+      "type": "Head",
+      "stats": "+140 Intellect\n+110 Stamina\nEquip: Allows you to maintain up to three separate Twilight Tethers simultaneously.",
+      "description": "The tears of the judge fall for both the living and the dead.",
+      "iconName": "inv_helmet_53",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Sever the Scales refunds 50% of its mana cost if it successfully executes an enemy.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Scales of Equilibrium",
+        "pieces": [
+          {
+            "name": "Cord of Duality",
+            "isActive": false
+          },
+          {
+            "name": "Mitre of the Weeping Judge",
+            "isActive": true
+          },
+          {
+            "name": "Gavel of the Final Verdict",
+            "isActive": false
+          }
+        ]
+      },
+      "baseItemName": "Tarnished Mitre of the Weeping Judge",
+      "origin": {
+        "type": "Drop",
+        "details": "An elite inquisitor drop in the open world."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Polish and reforge the corrupted silver lattice, using a purifying solvent to restore the artifact's neutrality.",
+        "profession": "Master Blacksmith & Alchemist",
+        "reagents": [
+          {
+            "name": "Silver Lattice",
+            "quantity": 3,
+            "iconName": "inv_misc_ingot_01"
+          },
+          {
+            "name": "Purifying Solvent",
+            "quantity": 5,
+            "iconName": "inv_potion_01"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Gavel of the Final Verdict",
+      "rarity": "Legendary",
+      "itemLevel": 660,
+      "type": "1-Handed Mace",
+      "stats": "+190 Intellect\n+140 Mastery\nEquip: Unlocks Sever the Scales. Snaps all active tethers instantly to execute the enemy or burst heal the ally based on health deficits.",
+      "description": "The scales must always balance.",
+      "iconName": "inv_mace_1h_stratholme_d_01",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Sever the Scales refunds 50% of its mana cost if it successfully executes an enemy.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Scales of Equilibrium",
+        "pieces": [
+          {
+            "name": "Cord of Duality",
+            "isActive": false
+          },
+          {
+            "name": "Mitre of the Weeping Judge",
+            "isActive": false
+          },
+          {
+            "name": "Gavel of the Final Verdict",
+            "isActive": true
+          }
+        ]
+      },
+      "baseItemName": "Unbalanced Gavel of the Final Verdict",
+      "origin": {
+        "type": "Drop",
+        "details": "Raid boss drop from a corrupted angelic or void entity."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Install a weighted gyroscopic core to perfectly balance the weapon, and imbue it with the magic required to sever the tethers.",
+        "profession": "Master Engineer & Enchanter",
+        "reagents": [
+          {
+            "name": "Gyroscopic Core",
+            "quantity": 1,
+            "iconName": "inv_misc_gear_01"
+          },
+          {
+            "name": "Severing Imbue",
+            "quantity": 4,
+            "iconName": "inv_misc_dust_02"
+          }
+        ]
+      }
+    }
+  ]
+}

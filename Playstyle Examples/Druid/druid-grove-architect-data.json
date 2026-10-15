@@ -1,0 +1,168 @@
+{
+  "playstyleName": "Druid - Grove Architect",
+  "description": "Transforming the Druid into a master of battlefield geography. By dynamically generating physical collision geometry and Line of Sight (LoS) blockers, you can completely rewrite the physical arena and manipulate the ecosystem to trap, damage, or heal.",
+  "items": [
+    {
+      "name": "Seed of the Bramble Wall",
+      "rarity": "Epic",
+      "itemLevel": 645,
+      "type": "Trinket",
+      "stats": "+140 Intellect\n+100 Haste\nEquip: Alters Entangling Roots to spawn a targeted Bramble Wall composed of physical collision and LoS-blocking geometry.",
+      "description": "An aggressive, fast-growing strain of ironwood.",
+      "iconName": "inv_misc_herb_04",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Allies standing inside an Ash Patch gain 15% increased haste.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Vestments of the Grove",
+        "pieces": [
+          {
+            "name": "Seed of the Bramble Wall",
+            "isActive": true
+          },
+          {
+            "name": "Mantle of the Ecosystem",
+            "isActive": false
+          },
+          {
+            "name": "Staff of the Controlled Burn",
+            "isActive": false
+          }
+        ]
+      },
+      "baseItemName": "Dormant Bramble Seed",
+      "origin": {
+        "type": "Drop",
+        "details": "Drops from an overgrowth monstrosity in a mid-tier nature dungeon."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Cultivate the seed with enchanted water and fortified soil to awaken its rapid-growth properties.",
+        "profession": "Master Herbalist & Alchemist",
+        "reagents": [
+          {
+            "name": "Enchanted Spring Water",
+            "quantity": 5,
+            "iconName": "inv_potion_01"
+          },
+          {
+            "name": "Fortified Un'Goro Soil",
+            "quantity": 2,
+            "iconName": "inv_misc_dirt_02"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Mantle of the Ecosystem",
+      "rarity": "Epic",
+      "itemLevel": 645,
+      "type": "Shoulder",
+      "stats": "+130 Intellect\n+115 Mastery\nEquip: Casting Hurricane or Tranquility on a Bramble Wall mutates it into a damage-dealing Lasher-Bramble or a restorative Blooming-Bramble.",
+      "description": "Life adapts to the weather it is given.",
+      "iconName": "inv_shoulder_20",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Allies standing inside an Ash Patch gain 15% increased haste.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Vestments of the Grove",
+        "pieces": [
+          {
+            "name": "Seed of the Bramble Wall",
+            "isActive": false
+          },
+          {
+            "name": "Mantle of the Ecosystem",
+            "isActive": true
+          },
+          {
+            "name": "Staff of the Controlled Burn",
+            "isActive": false
+          }
+        ]
+      },
+      "baseItemName": "Withered Mantle of the Ecosystem",
+      "origin": {
+        "type": "Drop",
+        "details": "A rare drop from an elite ancient in an endgame forested zone."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Weave living vines into the mantle and infuse it with nature magic to restore its vitality.",
+        "profession": "Master Tailor & Enchanter",
+        "reagents": [
+          {
+            "name": "Living Vine Thread",
+            "quantity": 4,
+            "iconName": "inv_misc_herb_11"
+          },
+          {
+            "name": "Dust of Restoration",
+            "quantity": 3,
+            "iconName": "inv_misc_dust_01"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Staff of the Controlled Burn",
+      "rarity": "Legendary",
+      "itemLevel": 660,
+      "type": "Staff",
+      "stats": "+195 Intellect\n+140 Critical Strike\nEquip: Casting Moonfire on a Bramble Wall incinerates it, instantly removing LoS blockers, dealing burst damage, and leaving an Ash Patch that grants movement speed and resource regeneration.",
+      "description": "Destruction is just the first step of cultivation.",
+      "iconName": "inv_staff_12",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Allies standing inside an Ash Patch gain 15% increased haste.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Vestments of the Grove",
+        "pieces": [
+          {
+            "name": "Seed of the Bramble Wall",
+            "isActive": false
+          },
+          {
+            "name": "Mantle of the Ecosystem",
+            "isActive": false
+          },
+          {
+            "name": "Staff of the Controlled Burn",
+            "isActive": true
+          }
+        ]
+      },
+      "baseItemName": "Charred Branch of the Firelands",
+      "origin": {
+        "type": "Drop",
+        "details": "Raid boss drop from a corrupted fiery treant."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Carve druidic runes into the charred wood and bind a core of living flame to control the incineration.",
+        "profession": "Master Enchanter & Engineer",
+        "reagents": [
+          {
+            "name": "Living Flame Core",
+            "quantity": 1,
+            "iconName": "inv_elemental_primal_fire"
+          },
+          {
+            "name": "Heat-Resistant Brackets",
+            "quantity": 2,
+            "iconName": "inv_misc_gear_01"
+          }
+        ]
+      }
+    }
+  ]
+}

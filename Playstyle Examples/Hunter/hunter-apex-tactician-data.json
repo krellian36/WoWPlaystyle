@@ -1,0 +1,168 @@
+{
+  "playstyleName": "Hunter - Apex Tactician",
+  "description": "This playstyle treats the battlefield like a tactical grid. The Hunter’s pet is no longer an AI companion on autopilot; it becomes a strategic pawn that the Hunter commands to control space, while their traps evolve into an interconnected web of area denial.",
+  "items": [
+    {
+      "name": "Spool of the Broodmother",
+      "rarity": "Epic",
+      "itemLevel": 645,
+      "type": "Trinket",
+      "stats": "+130 Agility\n+100 Mastery\nEquip: Prevents traps from triggering automatically and allows them to link together into a grid.",
+      "description": "A sophisticated, tension-calibrated housing for venom-dissolved silk.",
+      "iconName": "inv_misc_web_01",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Executing a Bloodied target grants your pet 30% increased attack speed for 10 seconds.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Tracker's Gambit",
+        "pieces": [
+          {
+            "name": "Spool of the Broodmother",
+            "isActive": true
+          },
+          {
+            "name": "Whistle of the Beast-Lord",
+            "isActive": false
+          },
+          {
+            "name": "Arbalest of the Blood-Tracker",
+            "isActive": false
+          }
+        ]
+      },
+      "baseItemName": "Tangled Spool of the Broodmother",
+      "origin": {
+        "type": "Drop",
+        "details": "Drops from a giant spider or nerubian boss in a mid-tier dungeon."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Brew a powerful solvent to dissolve the venom without destroying the thread, and build a sophisticated, tension-calibrated housing.",
+        "profession": "Master Alchemist & Engineer",
+        "reagents": [
+          {
+            "name": "Powerful Solvent",
+            "quantity": 3,
+            "iconName": "inv_potion_05"
+          },
+          {
+            "name": "Tension-Calibrated Housing",
+            "quantity": 1,
+            "iconName": "inv_misc_gear_01"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Whistle of the Beast-Lord",
+      "rarity": "Epic",
+      "itemLevel": 645,
+      "type": "Head",
+      "stats": "+140 Agility\n+110 Haste\nEquip: Replaces standard pet attack commands with Pawn Command, allowing precise coordinate targeting and trap absorption.",
+      "description": "A resonating crystal bound by the hide of an apex predator.",
+      "iconName": "inv_misc_horn_01",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Executing a Bloodied target grants your pet 30% increased attack speed for 10 seconds.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Tracker's Gambit",
+        "pieces": [
+          {
+            "name": "Spool of the Broodmother",
+            "isActive": false
+          },
+          {
+            "name": "Whistle of the Beast-Lord",
+            "isActive": true
+          },
+          {
+            "name": "Arbalest of the Blood-Tracker",
+            "isActive": false
+          }
+        ]
+      },
+      "baseItemName": "Cracked Whistle of the Beast-Lord",
+      "origin": {
+        "type": "Drop",
+        "details": "A rare drop from an elite beast roaming a high-level, heavily contested zone (e.g., Un'Goro Crater or Sholazar Basin)."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Carve a resonating crystal to replace the broken chamber, and craft a reinforced strap from elite beast hide to bind it.",
+        "profession": "Master Jewelcrafter & Leatherworker",
+        "reagents": [
+          {
+            "name": "Resonating Crystal",
+            "quantity": 1,
+            "iconName": "inv_misc_gem_sapphire_02"
+          },
+          {
+            "name": "Reinforced Beast Strap",
+            "quantity": 4,
+            "iconName": "inv_misc_leatherscrap_02"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Arbalest of the Blood-Tracker",
+      "rarity": "Legendary",
+      "itemLevel": 660,
+      "type": "Crossbow",
+      "stats": "+190 Agility\n+140 Critical Strike\nEquip: Applies the 'Bloodied' status to enemies heavily damaged within the trap grid, enabling the pet's execution attack.",
+      "description": "The bowstring hums with tracking magic, endlessly seeking the scent of blood.",
+      "iconName": "inv_weapon_crossbow_04",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Executing a Bloodied target grants your pet 30% increased attack speed for 10 seconds.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Tracker's Gambit",
+        "pieces": [
+          {
+            "name": "Spool of the Broodmother",
+            "isActive": false
+          },
+          {
+            "name": "Whistle of the Beast-Lord",
+            "isActive": false
+          },
+          {
+            "name": "Arbalest of the Blood-Tracker",
+            "isActive": true
+          }
+        ]
+      },
+      "baseItemName": "Splintered Arbalest of the Blood-Tracker",
+      "origin": {
+        "type": "Drop",
+        "details": "A boss drop from a mid-to-late wing of the current endgame raid."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Forge a new high-tension firing cam out of rare raid-tier ores, and weave tracking magic into the bowstring.",
+        "profession": "Master Blacksmith & Enchanter",
+        "reagents": [
+          {
+            "name": "High-Tension Firing Cam",
+            "quantity": 1,
+            "iconName": "inv_misc_enggizmos_19"
+          },
+          {
+            "name": "Tracking Enchantment Dust",
+            "quantity": 6,
+            "iconName": "inv_misc_dust_02"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "playstyleName": "Warrior - Lodestone Colossus",
+  "description": "This playstyle shifts the Warrior from a brute-force brawler into an active combat tracker. You are no longer just watching health bars; you are managing the encounter's spatial geometry and dictating exactly where enemies and allies are allowed to be.",
+  "items": [
+    {
+      "name": "The Singularity Anchor",
+      "rarity": "Epic",
+      "itemLevel": 60,
+      "type": "Trinket",
+      "stats": "+150 Strength\n+120 Stamina\nEquip: Alters Thunder Clap to consume extra Rage, creating a persistent Gravity Well effect that pulls enemies inward.",
+      "description": "A dormant core awakened to warp the battlefield.",
+      "iconName": "inv_misc_enggizmos_27",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Shield Slam detonations knock enemies an additional 5 yards into the air.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Gravitic Bastion",
+        "pieces": [
+          {
+            "name": "The Singularity Anchor",
+            "isActive": true
+          },
+          {
+            "name": "Kinetic Sabatons",
+            "isActive": false
+          },
+          {
+            "name": "The Event Horizon",
+            "isActive": false
+          }
+        ]
+      },
+      "baseItemName": "Depleted Lodestone Core",
+      "origin": {
+        "type": "Crafting",
+        "details": "Drops from an elemental or golem boss in a mid-tier, Titan-themed dungeon (like Uldaman or Ulduar)."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "",
+        "profession": "Master Engineer & Blacksmith",
+        "reagents": [
+          {
+            "name": "Gyroscopic Containment Shell",
+            "quantity": 1,
+            "iconName": "inv_misc_gear_01"
+          },
+          {
+            "name": "Heavy Outer Casing",
+            "quantity": 1,
+            "iconName": "inv_ingot_05"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Kinetic Sabatons",
+      "rarity": "Epic",
+      "itemLevel": 60,
+      "type": "Feet",
+      "stats": "+120 Strength\n+140 Stamina\nEquip: Converts Charge and Intercept into coordinate-targeted or ally-targeted abilities, applying a kinetic barrier upon landing.",
+      "description": "Heavy enough to shatter the earth, padded enough to save the wearer.",
+      "iconName": "inv_boots_plate_08",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Shield Slam detonations knock enemies an additional 5 yards into the air.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Gravitic Bastion",
+        "pieces": [
+          {
+            "name": "The Singularity Anchor",
+            "isActive": false
+          },
+          {
+            "name": "Kinetic Sabatons",
+            "isActive": true
+          },
+          {
+            "name": "The Event Horizon",
+            "isActive": false
+          }
+        ]
+      },
+      "baseItemName": "Crater-Forged Treads",
+      "origin": {
+        "type": "Crafting",
+        "details": "A rare drop from a massive elite giant roaming an endgame mountainous zone."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "",
+        "profession": "Master Leatherworker & Alchemist",
+        "reagents": [
+          {
+            "name": "Impact-Dampening Padding",
+            "quantity": 2,
+            "iconName": "inv_misc_leatherscrap_02"
+          },
+          {
+            "name": "Reactive Kinetic Gel",
+            "quantity": 5,
+            "iconName": "inv_potion_51"
+          }
+        ]
+      }
+    },
+    {
+      "name": "The Event Horizon",
+      "rarity": "Legendary",
+      "itemLevel": 60,
+      "type": "Shield",
+      "stats": "+180 Strength\n+220 Stamina\nEquip: Detonates active Gravity Wells with Shield Slam, converting absorbed kinetic energy into an AoE knock-up and stun.",
+      "description": "Not even light escapes.",
+      "iconName": "inv_shield_48",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Shield Slam detonations knock enemies an additional 5 yards into the air.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Gravitic Bastion",
+        "pieces": [
+          {
+            "name": "The Singularity Anchor",
+            "isActive": false
+          },
+          {
+            "name": "Kinetic Sabatons",
+            "isActive": false
+          },
+          {
+            "name": "The Event Horizon",
+            "isActive": true
+          }
+        ]
+      },
+      "baseItemName": "Fractured Meteorite Bulwark",
+      "origin": {
+        "type": "Crafting",
+        "details": "A highly contested drop from a physical-damage-heavy raid boss in an endgame tier."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "",
+        "profession": "Master Jewelcrafter & Enchanter",
+        "reagents": [
+          {
+            "name": "Flawless Resonating Diamond",
+            "quantity": 1,
+            "iconName": "inv_misc_gem_diamond_02"
+          },
+          {
+            "name": "Gravity-Warping Runes",
+            "quantity": 3,
+            "iconName": "inv_misc_rune_01"
+          }
+        ]
+      }
+    }
+  ]
+}
