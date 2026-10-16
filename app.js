@@ -5,7 +5,7 @@ import {
 } from './model.js';
 import { sheetHTML, esc } from './render.js';
 import { panelHTML } from './panel.js';
-import { download } from './export.js';
+import { exportSheet, exportTooltip, exportAllTooltips, download } from './export.js';
 
 const STORAGE_KEY = 'wowplaystyle:v2';
 const FIRST_EXAMPLE = 'mage-arcane-architect.json';
@@ -19,6 +19,7 @@ const toastEl = $('toast');
 const fileInput = $('file-input');
 const examplesList = $('examples-list');
 const dropHint = $('drop-hint');
+const exportMenu = $('export-menu');
 
 // edit is null or { kind: 'playstyle' | 'set' | 'item', id, part, from }
 const state = { playstyle: null, edit: null, exporting: false };
@@ -283,6 +284,9 @@ const actions = {
     download(new Blob([serialize(state.playstyle)], { type: 'application/json' }), filename);
     toast(`Saved ${filename}`);
   },
+  'export-sheet': () => runExport(() => exportSheet(state.playstyle)),
+  'export-item': () => runExport(() => exportTooltip(state.playstyle, currentItem() ?? state.playstyle.items[0])),
+  'export-all': () => runExport(() => exportAllTooltips(state.playstyle)),
   undo,
 };
 
@@ -314,6 +318,28 @@ async function loadExampleList() {
       .join('');
   } catch {
     examplesList.innerHTML = '<p class="menu-note">The examples couldn\'t be loaded.</p>';
+  }
+}
+
+/* ---------- export ---------- */
+async function runExport(job) {
+  if (state.exporting) return;
+  state.exporting = true;
+  const summary = exportMenu.querySelector('summary');
+  exportMenu.setAttribute('aria-busy', 'true');
+  summary.textContent = 'Exporting…';
+  try {
+    const { blob, filename } = await job();
+    download(blob, filename);
+    toast(`Saved ${filename}`);
+  } catch (err) {
+    console.error(err);
+    const reason = err instanceof Event ? "an image couldn't be loaded" : err?.message || 'unknown error';
+    toast(`Export failed: ${reason}`);
+  } finally {
+    state.exporting = false;
+    exportMenu.removeAttribute('aria-busy');
+    summary.textContent = 'Export';
   }
 }
 
