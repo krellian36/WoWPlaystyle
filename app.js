@@ -344,7 +344,7 @@ async function runExport(job) {
   if (state.exporting) return;
   flushIcon();
   state.exporting = true;
-  const summary = exportMenu.querySelector('summary');
+  const summary = exportMenu.querySelector('summary span');
   exportMenu.setAttribute('aria-busy', 'true');
   summary.textContent = 'Exporting…';
   try {

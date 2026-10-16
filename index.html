@@ -11,17 +11,20 @@
 </head>
 <body>
 <header class="bar">
-  <a class="wordmark" href="./">WoWPlaystyle</a>
+  <div class="brand">
+    <a class="wordmark" href="./">WoWPlaystyle</a>
+    <span class="tagline">Class set designer</span>
+  </div>
   <nav class="bar-actions" aria-label="Playstyle">
     <details class="menu" id="examples-menu">
-      <summary class="btn">Examples</summary>
+      <summary class="btn"><img class="btn-icon" src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_book_09.jpg" alt=""><span>Examples</span></summary>
       <div class="menu-list" id="examples-list"><p class="menu-note">Loading…</p></div>
     </details>
-    <button type="button" class="btn" data-action="new">New</button>
-    <button type="button" class="btn" data-action="open">Open</button>
-    <button type="button" class="btn" data-action="save">Save</button>
+    <button type="button" class="btn" data-action="new"><img class="btn-icon" src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_note_01.jpg" alt=""><span>New</span></button>
+    <button type="button" class="btn" data-action="open"><img class="btn-icon" src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_bag_10.jpg" alt=""><span>Open</span></button>
+    <button type="button" class="btn" data-action="save"><img class="btn-icon" src="https://wow.zamimg.com/images/wow/icons/medium/inv_scroll_03.jpg" alt=""><span>Save</span></button>
     <details class="menu menu-right" id="export-menu">
-      <summary class="btn primary">Export</summary>
+      <summary class="btn primary"><img class="btn-icon" src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_spyglass_02.jpg" alt=""><span>Export</span></summary>
       <div class="menu-list">
         <button type="button" data-action="export-sheet">Sheet <small>PNG</small></button>
         <button type="button" data-action="export-item">Selected item's tooltip <small>PNG</small></button>
