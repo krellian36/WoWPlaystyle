@@ -1,0 +1,168 @@
+{
+  "playstyleName": "Warlock - Symbiotic Host",
+  "description": "Refocusing the Warlock from a backline summoner into a shape-shifting, demonic hybrid. You no longer fight alongside your demon; instead, you absorb it as an equippable power matrix, merging with its essence to gain an entirely new suite of physical capabilities.",
+  "items": [
+    {
+      "name": "Flesh-Pact Girdle",
+      "rarity": "Epic",
+      "itemLevel": 645,
+      "type": "Waist",
+      "stats": "+110 Stamina\n+95 Intellect\nEquip: Unlocks Demonic Synthesis. Absorbing a Voidwalker grants plate-level armor and melee cleaves. Absorbing an Imp grants rapid-fire mobility spells. Absorbing a Felhunter grants magic immunity and silences.",
+      "description": "The cold-iron clasps barely contain the void within.",
+      "iconName": "inv_belt_22",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Purge Host now also fears all enemies within 8 yards for 3 seconds.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Flesh-Pact Regalia",
+        "pieces": [
+          {
+            "name": "Flesh-Pact Girdle",
+            "isActive": true
+          },
+          {
+            "name": "Flesh-Pact Mantle",
+            "isActive": false
+          },
+          {
+            "name": "Cleansed Pact-Breaker's Sickle",
+            "isActive": false
+          }
+        ]
+      },
+      "baseItemName": "Ruptured Binding Girdle",
+      "origin": {
+        "type": "Drop",
+        "details": "Drops from a demonic lieutenant in a mid-tier dungeon."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Replace the corrupted leather with purified hide, then forge cold-iron clasps to prevent demonic energy leaks.",
+        "profession": "Master Leatherworker & Blacksmith",
+        "reagents": [
+          {
+            "name": "Purified Demon Hide",
+            "quantity": 4,
+            "iconName": "inv_misc_leatherscrap_11"
+          },
+          {
+            "name": "Cold-Iron Clasp",
+            "quantity": 2,
+            "iconName": "inv_ingot_03"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Flesh-Pact Mantle",
+      "rarity": "Epic",
+      "itemLevel": 645,
+      "type": "Shoulder",
+      "stats": "+125 Stamina\n+100 Intellect\nEquip: Alters Life Tap. Instead of draining health for mana, it rapidly drains mana to temporarily halt the lethal health-drain of the Symbiotic state.",
+      "description": "Stitched with silver thread so it cannot feed on its master.",
+      "iconName": "inv_shoulder_25",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Purge Host now also fears all enemies within 8 yards for 3 seconds.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Flesh-Pact Regalia",
+        "pieces": [
+          {
+            "name": "Flesh-Pact Girdle",
+            "isActive": false
+          },
+          {
+            "name": "Flesh-Pact Mantle",
+            "isActive": true
+          },
+          {
+            "name": "Cleansed Pact-Breaker's Sickle",
+            "isActive": false
+          }
+        ]
+      },
+      "baseItemName": "Parasitic Mantle of the Summoner",
+      "origin": {
+        "type": "Drop",
+        "details": "A rare drop from an elite demon roaming an endgame corrupted zone."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Brew a powerful sedative to put the living fabric to sleep, then stitch it closed with silver thread.",
+        "profession": "Alchemist & Tailor",
+        "reagents": [
+          {
+            "name": "Fabric Sedative",
+            "quantity": 1,
+            "iconName": "inv_potion_01"
+          },
+          {
+            "name": "Spool of Silver Thread",
+            "quantity": 6,
+            "iconName": "inv_fabric_silk_01"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Cleansed Pact-Breaker's Sickle",
+      "rarity": "Legendary",
+      "itemLevel": 660,
+      "type": "1-Handed Sickle",
+      "stats": "+160 Stamina\n+140 Intellect\nEquip: Unlocks Purge Host. Instantly ends Demonic Synthesis, violently ejecting the demon from your body to cause a massive AoE shadow explosion.",
+      "description": "Tempered in holy water to direct its explosive malice strictly outward.",
+      "iconName": "inv_weapon_shortblade_06",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Purge Host now also fears all enemies within 8 yards for 3 seconds.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Flesh-Pact Regalia",
+        "pieces": [
+          {
+            "name": "Flesh-Pact Girdle",
+            "isActive": false
+          },
+          {
+            "name": "Flesh-Pact Mantle",
+            "isActive": false
+          },
+          {
+            "name": "Cleansed Pact-Breaker's Sickle",
+            "isActive": true
+          }
+        ]
+      },
+      "baseItemName": "Pact-Breaker's Sickle",
+      "origin": {
+        "type": "Drop",
+        "details": "A guaranteed drop from a high-ranking dreadlord raid boss."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Re-temper the cursed blade in holy water, and bind the hilt with outward-facing warding runes.",
+        "profession": "Master Blacksmith & Enchanter",
+        "reagents": [
+          {
+            "name": "Vial of Holy Water",
+            "quantity": 3,
+            "iconName": "inv_potion_03"
+          },
+          {
+            "name": "Warding Rune",
+            "quantity": 4,
+            "iconName": "inv_misc_rune_01"
+          }
+        ]
+      }
+    }
+  ]
+}

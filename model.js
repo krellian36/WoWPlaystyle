@@ -89,3 +89,127 @@ export function iconUrl(name, size = 'large') {
   const file = String(name).trim().split('/').pop().toLowerCase().replace(/\.(jpg|jpeg|png)$/, '');
   return `https://wow.zamimg.com/images/wow/icons/${size}/${encodeURIComponent(file || FALLBACK_ICON)}.jpg`;
 }
+
+/* ---------- loading and saving ---------- */
+const str = v => (typeof v === 'string' ? v : v == null ? '' : String(v));
+const oneOf = (v, allowed, fallback) => (typeof v === 'string' && Object.hasOwn(allowed, v) ? v : fallback);
+const list = v => (Array.isArray(v) ? v : []);
+
+function itemLevel(v) {
+  const n = Number.parseInt(v, 10);
+  return Number.isFinite(n) && n >= 0 ? n : null;
+}
+
+function count(v) {
+  const n = Number.parseInt(v, 10);
+  return Number.isFinite(n) && n > 0 ? n : 1;
+}
+
+function normalizeItem(raw) {
+  const origin = raw.origin ?? {};
+  const catalyst = raw.catalyst ?? {};
+  return {
+    id: str(raw.id) || newId(),
+    name: str(raw.name),
+    rarity: oneOf(raw.rarity, RARITY_COLORS, 'epic'),
+    itemLevel: itemLevel(raw.itemLevel),
+    binding: oneOf(raw.binding, BINDINGS, ''),
+    slot: str(raw.slot),
+    type: str(raw.type),
+    stats: str(raw.stats),
+    flavor: str(raw.flavor),
+    icon: str(raw.icon).trim(),
+    inSet: raw.inSet !== false,
+    equipped: raw.equipped !== false,
+    origin: {
+      type: oneOf(origin.type, ORIGIN_TYPES, 'drop'),
+      baseName: str(origin.baseName),
+      details: str(origin.details),
+    },
+    catalyst: {
+      type: oneOf(catalyst.type, CATALYST_TYPES, 'none'),
+      professions: str(catalyst.professions),
+      details: str(catalyst.details),
+      reagents: list(catalyst.reagents).map(r => ({ name: str(r?.name), quantity: count(r?.quantity), icon: str(r?.icon).trim() })),
+    },
+  };
+}
+
+export function normalize(raw) {
+  if (!raw || typeof raw !== 'object' || !Array.isArray(raw.items)) throw new NotAPlaystyleError();
+  const items = raw.items.filter(i => i && typeof i === 'object').map(normalizeItem);
+  const seen = new Set();
+  for (const item of items) {
+    while (seen.has(item.id)) item.id = newId();
+    seen.add(item.id);
+  }
+  const set = raw.set ?? {};
+  return {
+    version: 2,
+    name: str(raw.name),
+    description: str(raw.description),
+    set: {
+      name: str(set.name),
+      bonuses: list(set.bonuses).map(b => ({ pieces: count(b?.pieces), text: str(b?.text) })),
+    },
+    items: items.length ? items : [blankItem()],
+  };
+}
+
+// Version 1 is the format of the original Next.js app: every item carried its own copy of the set.
+const BONUS_PREFIX = /^\s*\((\d+)\)\s*(?:set\s*:)?\s*/i;
+const V1_ORIGIN = { Drop: 'drop', Quest: 'quest', Crafting: 'crafted' };
+const pieceName = p => (typeof p === 'string' ? p : str(p?.name));
+
+function fromV1(old) {
+  const items = old.items.filter(i => i && typeof i === 'object');
+  const setItem = items.find(i => str(i.itemSet?.name).trim());
+  const pieceNames = list(setItem?.itemSet?.pieces).map(pieceName);
+  const pieceCount = pieceNames.length || items.length;
+  const bonuses = list(setItem?.setBonuses ?? items.find(i => list(i.setBonuses).length)?.setBonuses).map(b => {
+    const text = str(b?.text);
+    const prefix = text.match(BONUS_PREFIX);
+    return prefix ? { pieces: Number(prefix[1]), text: text.slice(prefix[0].length) } : { pieces: pieceCount, text };
+  });
+  const inSet = item => (!setItem ? false : pieceNames.length ? pieceNames.includes(item.name) : Boolean(item.itemSet));
+
+  return {
+    version: 2,
+    name: old.playstyleName,
+    description: old.description,
+    set: { name: setItem ? setItem.itemSet.name : '', bonuses: setItem ? bonuses : [] },
+    items: items.map(i => ({
+      name: i.name,
+      rarity: str(i.rarity).toLowerCase(),
+      itemLevel: i.itemLevel,
+      binding: '',
+      slot: i.type,
+      type: '',
+      stats: i.stats,
+      flavor: i.description,
+      icon: i.iconName,
+      inSet: inSet(i),
+      equipped: true,
+      origin: { type: V1_ORIGIN[i.origin?.type] ?? 'drop', baseName: i.baseItemName, details: i.origin?.details },
+      catalyst: {
+        type: str(i.catalyst?.type).toLowerCase(),
+        professions: i.catalyst?.profession,
+        details: i.catalyst?.details,
+        reagents: list(i.catalyst?.reagents).map(r => ({ name: r?.name, quantity: r?.quantity, icon: r?.iconName })),
+      },
+    })),
+  };
+}
+
+export function migrate(raw) {
+  if (!raw || typeof raw !== 'object' || !Array.isArray(raw.items)) throw new NotAPlaystyleError();
+  return normalize(raw.version === 2 ? raw : fromV1(raw));
+}
+
+export function parsePlaystyle(text) {
+  let raw;
+  try { raw = JSON.parse(text); } catch { throw new NotAPlaystyleError(); }
+  return migrate(raw);
+}
+
+export const serialize = p => `${JSON.stringify(p, null, 2)}\n`;
