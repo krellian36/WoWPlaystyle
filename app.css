@@ -52,12 +52,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .tooltip-export { display: inline-block; padding: 10px; }
 
 /* ---------- sheet (also used by exports) ---------- */
-.sheet { width: max-content; min-width: 760px; padding: 34px 34px 18px; background: radial-gradient(ellipse 70% 50% at 12% 0%, #231d12 0%, transparent 70%), #0d0e12; color: #d8dbe2; font: 13px/1.45 system-ui, 'Segoe UI', Roboto, sans-serif; }
+/* The width follows the column count (300px columns, 20px gaps, 34px padding), so long text wraps
+   instead of stretching the export. */
+.sheet { width: max(760px, calc(var(--cols) * 320px + 48px)); padding: 34px 34px 18px; background: radial-gradient(ellipse 70% 50% at 12% 0%, #231d12 0%, transparent 70%), #0d0e12; color: #d8dbe2; font: 13px/1.45 system-ui, 'Segoe UI', Roboto, sans-serif; }
 .sheet-head h1 { margin: 0; font: 36px/1.1 Marcellus, Georgia, serif; color: var(--gold); }
 .sheet-desc { max-width: 700px; margin: 10px 0 0; color: #a7acb7; font-size: 14px; }
 .setbar { display: flex; gap: 18px; margin: 20px 0 0; padding: 10px 14px; border: 1px solid #2c2f37; border-radius: 5px; background: rgba(255, 255, 255, .025); font: 12px/1.45 Verdana, 'DejaVu Sans', Geneva, sans-serif; }
-.setbar-name { flex: none; font-weight: bold; }
-.setbar-bonuses { display: flex; flex-direction: column; gap: 2px; }
+.sheet-head, .setbar { overflow-wrap: anywhere; }
+.setbar-name { flex: 0 1 auto; max-width: 35%; font-weight: bold; }
+.setbar-bonuses { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .sheet-cols { display: grid; grid-template-columns: repeat(var(--cols), 300px); gap: 30px 20px; align-items: start; margin-top: 26px; }
 .col { display: flex; flex-direction: column; gap: 6px; }
 .col .tt-icon { width: 40px; height: 40px; }

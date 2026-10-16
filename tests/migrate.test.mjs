@@ -106,6 +106,12 @@ test('normalize repairs a hand-edited v2 file', () => {
   assert.deepEqual(p.set, { name: '', bonuses: [] });
 });
 
+test('ids that would break editing are replaced', () => {
+  const p = migrate({ version: 2, items: [{ id: 'a:b' }, { id: 'has space' }, { id: 'ok-id_1' }] });
+  assert.ok(p.items.slice(0, 2).every(i => /^[\w-]+$/.test(i.id)), p.items.map(i => i.id).join());
+  assert.equal(p.items[2].id, 'ok-id_1');
+});
+
 test('an empty item list gets one blank item', () => {
   assert.equal(migrate({ version: 2, items: [] }).items.length, 1);
 });

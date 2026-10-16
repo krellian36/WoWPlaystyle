@@ -105,11 +105,14 @@ function count(v) {
   return Number.isFinite(n) && n > 0 ? n : 1;
 }
 
+// Ids end up inside data-edit="item:<id>:part" and CSS selectors, so only plain characters are kept.
+const SAFE_ID = /^[\w-]+$/;
+
 function normalizeItem(raw) {
   const origin = raw.origin ?? {};
   const catalyst = raw.catalyst ?? {};
   return {
-    id: str(raw.id) || newId(),
+    id: SAFE_ID.test(str(raw.id)) ? str(raw.id) : newId(),
     name: str(raw.name),
     rarity: oneOf(raw.rarity, RARITY_COLORS, 'epic'),
     itemLevel: itemLevel(raw.itemLevel),

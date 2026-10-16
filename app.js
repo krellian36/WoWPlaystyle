@@ -28,6 +28,7 @@ let saveTimer = 0;
 let storageWarned = false;
 let undoSnapshot = null;
 let iconTimer = 0;
+let pendingIcon = null; // an icon edit waiting for typing to pause
 
 /* ---------- the sheet ---------- */
 function renderSheet() {
@@ -75,7 +76,17 @@ function saveLocal() {
 const currentItem = () => state.playstyle.items.find(item => item.id === state.edit?.id);
 const finePointer = matchMedia('(pointer: fine)');
 
+// Apply a waiting icon edit now, before anything reads or redraws the playstyle.
+function flushIcon() {
+  if (!pendingIcon) return;
+  clearTimeout(iconTimer);
+  const apply = pendingIcon;
+  pendingIcon = null;
+  apply();
+}
+
 function openEditor(target) {
+  flushIcon();
   if (target === 'add') {
     const item = blankItem();
     state.playstyle.items.push(item);
@@ -88,6 +99,7 @@ function openEditor(target) {
   renderPanel();
   markSelection();
   fitStage();
+  if (!state.edit) return; // the item vanished and renderPanel closed the editor
   const section = (part && panel.querySelector(`[data-section="${part}"]`)) || panel.querySelector('.panel-body');
   section.scrollIntoView({ block: 'start' });
   // Focusing on a phone would pop the keyboard over the sheet the moment you tap it.
@@ -104,6 +116,7 @@ function renderPanel() {
 }
 
 function closeEditor(restoreFocus = true) {
+  flushIcon();
   const from = state.edit?.from;
   state.edit = null;
   panel.hidden = true;
@@ -154,8 +167,10 @@ panel.addEventListener('input', event => {
   // Icon names are looked up on Wowhead, so wait until typing pauses.
   if ('icon' in el.dataset) {
     clearTimeout(iconTimer);
-    iconTimer = setTimeout(apply, 400);
+    pendingIcon = apply;
+    iconTimer = setTimeout(flushIcon, 400);
   } else {
+    flushIcon();
     apply();
   }
 });
@@ -205,6 +220,7 @@ const panelActions = {
 panel.addEventListener('click', event => {
   const button = event.target.closest('[data-panel-action]');
   if (!button) return;
+  flushIcon();
   const action = button.dataset.panelAction;
   if (action === 'close') {
     closeEditor();
@@ -256,6 +272,7 @@ function remember() {
 }
 
 function replacePlaystyle(next, message) {
+  flushIcon();
   remember();
   state.playstyle = next;
   closeEditor(false);
@@ -280,6 +297,7 @@ const actions = {
   },
   open: () => fileInput.click(),
   save: () => {
+    flushIcon();
     const filename = `${slug(state.playstyle.name)}.json`;
     download(new Blob([serialize(state.playstyle)], { type: 'application/json' }), filename);
     toast(`Saved ${filename}`);
@@ -324,6 +342,7 @@ async function loadExampleList() {
 /* ---------- export ---------- */
 async function runExport(job) {
   if (state.exporting) return;
+  flushIcon();
   state.exporting = true;
   const summary = exportMenu.querySelector('summary');
   exportMenu.setAttribute('aria-busy', 'true');
@@ -415,6 +434,16 @@ async function start() {
   if (note) toast(note);
   loadExampleList();
 }
+
+// Closing or hiding the tab must not lose an edit that's still waiting on a timer.
+function saveNow() {
+  if (!state.playstyle) return;
+  flushIcon();
+  clearTimeout(saveTimer);
+  saveLocal();
+}
+window.addEventListener('pagehide', saveNow);
+document.addEventListener('visibilitychange', () => { if (document.hidden) saveNow(); });
 
 new ResizeObserver(fitStage).observe(stage);
 document.fonts.ready.then(fitStage);
