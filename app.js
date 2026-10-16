@@ -1,7 +1,11 @@
 // The editor: state, the live sheet, the edit panel, toolbar actions, autosave and undo.
-import { blankItem, blankPlaystyle, migrate, parsePlaystyle, serialize, newId, iconUrl, FALLBACK_ICON } from './model.js';
+import {
+  blankItem, blankPlaystyle, migrate, parsePlaystyle, serialize, newId, iconUrl, slug,
+  FALLBACK_ICON, NotAPlaystyleError,
+} from './model.js';
 import { sheetHTML, esc } from './render.js';
 import { panelHTML } from './panel.js';
+import { download } from './export.js';
 
 const STORAGE_KEY = 'wowplaystyle:v2';
 const FIRST_EXAMPLE = 'mage-arcane-architect.json';
@@ -12,6 +16,9 @@ const stage = $('stage');
 const inner = $('stage-inner');
 const panel = $('panel');
 const toastEl = $('toast');
+const fileInput = $('file-input');
+const examplesList = $('examples-list');
+const dropHint = $('drop-hint');
 
 // edit is null or { kind: 'playstyle' | 'set' | 'item', id, part, from }
 const state = { playstyle: null, edit: null, exporting: false };
@@ -247,6 +254,111 @@ function remember() {
   undoSnapshot = structuredClone(state.playstyle);
 }
 
+function replacePlaystyle(next, message) {
+  remember();
+  state.playstyle = next;
+  closeEditor(false);
+  changed();
+  toast(message, { undo: true });
+}
+
+function undo() {
+  if (!undoSnapshot) return;
+  state.playstyle = undoSnapshot;
+  undoSnapshot = null;
+  closeEditor(false);
+  changed();
+  toast('Undone');
+}
+
+/* ---------- toolbar ---------- */
+const actions = {
+  new: () => {
+    replacePlaystyle(blankPlaystyle(), 'Started a new playstyle');
+    openEditor('playstyle');
+  },
+  open: () => fileInput.click(),
+  save: () => {
+    const filename = `${slug(state.playstyle.name)}.json`;
+    download(new Blob([serialize(state.playstyle)], { type: 'application/json' }), filename);
+    toast(`Saved ${filename}`);
+  },
+  undo,
+};
+
+document.addEventListener('click', event => {
+  const actionEl = event.target.closest('[data-action]');
+  const exampleEl = event.target.closest('[data-example]');
+  for (const menu of document.querySelectorAll('details.menu[open]')) {
+    if (!menu.contains(event.target) || actionEl || exampleEl) menu.open = false;
+  }
+  if (actionEl) actions[actionEl.dataset.action]();
+  if (exampleEl) loadExample(exampleEl.dataset.example, exampleEl.textContent);
+});
+
+async function loadExample(file, name) {
+  try {
+    replacePlaystyle(await fetchExample(file), `Loaded ${name}`);
+  } catch {
+    toast(`Couldn't load the ${name} example.`);
+  }
+}
+
+async function loadExampleList() {
+  try {
+    const res = await fetch('examples/index.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const list = await res.json();
+    examplesList.innerHTML = list
+      .map(x => `<button type="button" data-example="${esc(x.file)}">${esc(x.name)}</button>`)
+      .join('');
+  } catch {
+    examplesList.innerHTML = '<p class="menu-note">The examples couldn\'t be loaded.</p>';
+  }
+}
+
+/* ---------- opening files ---------- */
+async function openFile(file) {
+  try {
+    replacePlaystyle(parsePlaystyle(await file.text()), `Opened ${file.name}`);
+  } catch (err) {
+    toast(err instanceof NotAPlaystyleError ? err.message : `Couldn't read ${file.name}.`);
+  }
+}
+
+fileInput.addEventListener('change', () => {
+  const [file] = fileInput.files;
+  fileInput.value = '';
+  if (file) openFile(file);
+});
+
+const hasFiles = event => [...(event.dataTransfer?.types ?? [])].includes('Files');
+let dragDepth = 0;
+window.addEventListener('dragenter', event => {
+  if (!hasFiles(event)) return;
+  dragDepth += 1;
+  dropHint.hidden = false;
+});
+window.addEventListener('dragleave', event => {
+  if (!hasFiles(event)) return;
+  dragDepth -= 1;
+  if (dragDepth <= 0) {
+    dragDepth = 0;
+    dropHint.hidden = true;
+  }
+});
+window.addEventListener('dragover', event => {
+  if (hasFiles(event)) event.preventDefault();
+});
+window.addEventListener('drop', event => {
+  if (!hasFiles(event)) return;
+  event.preventDefault();
+  dragDepth = 0;
+  dropHint.hidden = true;
+  const [file] = event.dataTransfer.files;
+  if (file) openFile(file);
+});
+
 /* ---------- toast ---------- */
 function toast(message, { undo = false } = {}) {
   toastEl.innerHTML = `<span>${esc(message)}</span>${undo ? '<button type="button" data-action="undo">Undo</button>' : ''}`;
@@ -275,6 +387,7 @@ async function start() {
   }
   renderSheet();
   if (note) toast(note);
+  loadExampleList();
 }
 
 new ResizeObserver(fitStage).observe(stage);
