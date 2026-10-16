@@ -1,0 +1,168 @@
+{
+  "playstyleName": "Rogue - Frontline Chirurgeon",
+  "description": "Instead of waiting for cast bars to finish from the backline, this playstyle demands that you stay in the thick of the melee scrum. You are actively managing a fluid triage inventory—generating resources through precise offensive strikes and instantly allocating those resources to keep your frontline alive.",
+  "items": [
+    {
+      "name": "Syringe-Belt of the Apothecary",
+      "rarity": "Epic",
+      "itemLevel": 645,
+      "type": "Waist",
+      "stats": "+130 Agility\n+100 Stamina\nEquip: Converts combo-point generators into abilities that passively store healing charges (Vials) based on damage dealt.",
+      "description": "A micro-pneumatic distribution system, loaded with a permanent base layer of coagulant.",
+      "iconName": "inv_belt_14",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Defibrillating Strike applies a 15% damage reduction shield to the target for 6 seconds.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Blood-Alchemist's Kit",
+        "pieces": [
+          {
+            "name": "Syringe-Belt of the Apothecary",
+            "isActive": true
+          },
+          {
+            "name": "Triage Goggles",
+            "isActive": false
+          },
+          {
+            "name": "Bone-Saws of the Flesh-Shaper",
+            "isActive": false
+          }
+        ]
+      },
+      "baseItemName": "Jammed Syringe-Belt of the Apothecary",
+      "origin": {
+        "type": "Drop",
+        "details": "Drops from a mad-scientist or undead boss in a mid-tier dungeon (e.g., Scholomance or a similar gothic instance)."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Rebuild the micro-pneumatic distribution system, while synthesizing and loading a permanent base layer of coagulant into the belt’s primary reservoir.",
+        "profession": "Master Engineer & Alchemist",
+        "reagents": [
+          {
+            "name": "Pneumatic Valve",
+            "quantity": 3,
+            "iconName": "inv_misc_gear_01"
+          },
+          {
+            "name": "Coagulant Base",
+            "quantity": 5,
+            "iconName": "inv_potion_14"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Triage Goggles",
+      "rarity": "Epic",
+      "itemLevel": 645,
+      "type": "Head",
+      "stats": "+140 Agility\n+110 Haste\nEquip: Unlocks the ability to target allies with finishing moves, scaling the heal based on the combo points and Vials allocated to the cast.",
+      "description": "A heavy-duty, sterile cowl housing a highly sensitive tracking matrix.",
+      "iconName": "inv_helmet_47",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Defibrillating Strike applies a 15% damage reduction shield to the target for 6 seconds.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Blood-Alchemist's Kit",
+        "pieces": [
+          {
+            "name": "Syringe-Belt of the Apothecary",
+            "isActive": false
+          },
+          {
+            "name": "Triage Goggles",
+            "isActive": true
+          },
+          {
+            "name": "Bone-Saws of the Flesh-Shaper",
+            "isActive": false
+          }
+        ]
+      },
+      "baseItemName": "Shattered Triage Goggles",
+      "origin": {
+        "type": "Drop",
+        "details": "A rare drop from a high-value assassination target located deep within a hostile, max-level enemy stronghold."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Cut pristine diagnostic prisms to replace the optics, and stitch a heavy-duty, sterile cowl to house the sensitive tracking matrix.",
+        "profession": "Master Jewelcrafter & Leatherworker",
+        "reagents": [
+          {
+            "name": "Diagnostic Prism",
+            "quantity": 2,
+            "iconName": "inv_misc_gem_crystal_01"
+          },
+          {
+            "name": "Sterile Leather Cowl",
+            "quantity": 1,
+            "iconName": "inv_misc_leatherscrap_02"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Bone-Saws of the Flesh-Shaper",
+      "rarity": "Legendary",
+      "itemLevel": 660,
+      "type": "Dual Daggers",
+      "stats": "+180 Agility\n+120 Critical Strike\nEquip: Enables the Defibrillating Strike emergency heal. Auto-attacks passively heal the lowest-health ally in your immediate melee vicinity.",
+      "description": "Purified in an aura of light to extract life without passing on the corruption.",
+      "iconName": "inv_weapon_shortblade_12",
+      "setBonuses": [
+        {
+          "text": "(3) Set: Defibrillating Strike applies a 15% damage reduction shield to the target for 6 seconds.",
+          "isActive": true
+        }
+      ],
+      "itemSet": {
+        "name": "Blood-Alchemist's Kit",
+        "pieces": [
+          {
+            "name": "Syringe-Belt of the Apothecary",
+            "isActive": false
+          },
+          {
+            "name": "Triage Goggles",
+            "isActive": false
+          },
+          {
+            "name": "Bone-Saws of the Flesh-Shaper",
+            "isActive": true
+          }
+        ]
+      },
+      "baseItemName": "Corroded Bone-Saws of the Flesh-Shaper",
+      "origin": {
+        "type": "Drop",
+        "details": "A paired drop from a council-style boss encounter in a major endgame raid."
+      },
+      "catalyst": {
+        "type": "Crafting",
+        "details": "Carefully re-hone the serrated edges using heat-treated raid metals, and bathe the blades in a purifying aura.",
+        "profession": "Master Blacksmith & Enchanter",
+        "reagents": [
+          {
+            "name": "Heat-Treated Raid Metal",
+            "quantity": 8,
+            "iconName": "inv_ingot_06"
+          },
+          {
+            "name": "Purifying Aura Dust",
+            "quantity": 10,
+            "iconName": "inv_misc_dust_02"
+          }
+        ]
+      }
+    }
+  ]
+}

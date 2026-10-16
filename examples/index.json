@@ -1,0 +1,38 @@
+[
+  {
+    "file": "druid-grove-architect.json",
+    "name": "Druid - Grove Architect"
+  },
+  {
+    "file": "hunter-apex-tactician.json",
+    "name": "Hunter - Apex Tactician"
+  },
+  {
+    "file": "mage-arcane-architect.json",
+    "name": "Mage - Arcane Architect"
+  },
+  {
+    "file": "paladin-sunbreaker-artillery.json",
+    "name": "Paladin - Sunbreaker Artillery"
+  },
+  {
+    "file": "priest-twilight-arbiter.json",
+    "name": "Priest - Twilight Arbiter"
+  },
+  {
+    "file": "rogue-frontline-chirurgeon.json",
+    "name": "Rogue - Frontline Chirurgeon"
+  },
+  {
+    "file": "shaman-harmonic-resonance-weaver.json",
+    "name": "Shaman - Harmonic Resonance Weaver"
+  },
+  {
+    "file": "warlock-symbiotic-host.json",
+    "name": "Warlock - Symbiotic Host"
+  },
+  {
+    "file": "warrior-lodestone-colossus.json",
+    "name": "Warrior - Lodestone Colossus"
+  }
+]

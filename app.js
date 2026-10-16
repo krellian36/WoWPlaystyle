@@ -1,0 +1,450 @@
+// The editor: state, the live sheet, the edit panel, toolbar actions, autosave and undo.
+import {
+  blankItem, blankPlaystyle, migrate, parsePlaystyle, serialize, newId, iconUrl, slug,
+  FALLBACK_ICON, NotAPlaystyleError,
+} from './model.js';
+import { sheetHTML, esc } from './render.js';
+import { panelHTML } from './panel.js';
+import { exportSheet, exportTooltip, exportAllTooltips, download } from './export.js';
+
+const STORAGE_KEY = 'wowplaystyle:v2';
+const FIRST_EXAMPLE = 'mage-arcane-architect.json';
+const TOAST_MS = 8000;
+
+const $ = id => document.getElementById(id);
+const stage = $('stage');
+const inner = $('stage-inner');
+const panel = $('panel');
+const toastEl = $('toast');
+const fileInput = $('file-input');
+const examplesList = $('examples-list');
+const dropHint = $('drop-hint');
+const exportMenu = $('export-menu');
+
+// edit is null or { kind: 'playstyle' | 'set' | 'item', id, part, from }
+const state = { playstyle: null, edit: null, exporting: false };
+let toastTimer = 0;
+let saveTimer = 0;
+let storageWarned = false;
+let undoSnapshot = null;
+let iconTimer = 0;
+let pendingIcon = null; // an icon edit waiting for typing to pause
+
+/* ---------- the sheet ---------- */
+function renderSheet() {
+  inner.innerHTML = sheetHTML(state.playstyle, { editing: true });
+  markSelection();
+  fitStage();
+}
+
+function markSelection() {
+  const edit = state.edit;
+  for (const el of inner.querySelectorAll('[data-edit]')) {
+    const target = el.dataset.edit;
+    const selected = !!edit && (edit.kind === 'item' ? target.startsWith(`item:${edit.id}:`) : target === edit.kind);
+    el.classList.toggle('is-selected', selected);
+  }
+}
+
+// Scale the sheet down to fit the stage; it's never scaled up.
+function fitStage() {
+  const sheet = inner.firstElementChild;
+  if (!sheet) return;
+  inner.style.zoom = '1';
+  const style = getComputedStyle(stage);
+  const room = stage.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+  inner.style.zoom = String(Math.min(1, room / sheet.offsetWidth));
+}
+
+function changed() {
+  renderSheet();
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveLocal, 300);
+}
+
+function saveLocal() {
+  try {
+    localStorage.setItem(STORAGE_KEY, serialize(state.playstyle));
+  } catch {
+    if (storageWarned) return;
+    storageWarned = true;
+    toast("This browser won't let the page keep your work, so use Save before you leave.");
+  }
+}
+
+/* ---------- edit panel ---------- */
+const currentItem = () => state.playstyle.items.find(item => item.id === state.edit?.id);
+const finePointer = matchMedia('(pointer: fine)');
+
+// Apply a waiting icon edit now, before anything reads or redraws the playstyle.
+function flushIcon() {
+  if (!pendingIcon) return;
+  clearTimeout(iconTimer);
+  const apply = pendingIcon;
+  pendingIcon = null;
+  apply();
+}
+
+function openEditor(target) {
+  flushIcon();
+  if (target === 'add') {
+    const item = blankItem();
+    state.playstyle.items.push(item);
+    changed();
+    target = `item:${item.id}:tooltip`;
+  }
+  const [kind, id, part] = target.split(':');
+  state.edit = { kind, id, part, from: target };
+  panel.hidden = false;
+  renderPanel();
+  markSelection();
+  fitStage();
+  if (!state.edit) return; // the item vanished and renderPanel closed the editor
+  const section = (part && panel.querySelector(`[data-section="${part}"]`)) || panel.querySelector('.panel-body');
+  section.scrollIntoView({ block: 'start' });
+  // Focusing on a phone would pop the keyboard over the sheet the moment you tap it.
+  if (finePointer.matches) section.querySelector('input, select, textarea')?.focus({ preventScroll: true });
+}
+
+function renderPanel() {
+  if (!state.edit) return;
+  if (state.edit.kind === 'item' && !currentItem()) {
+    closeEditor(false);
+    return;
+  }
+  panel.innerHTML = panelHTML(state.playstyle, state.edit);
+}
+
+function closeEditor(restoreFocus = true) {
+  flushIcon();
+  const from = state.edit?.from;
+  state.edit = null;
+  panel.hidden = true;
+  panel.innerHTML = '';
+  markSelection();
+  fitStage();
+  if (restoreFocus && from) inner.querySelector(`[data-edit="${CSS.escape(from)}"]`)?.focus();
+}
+
+function setPath(target, path, value) {
+  const keys = path.split('.');
+  const last = keys.pop();
+  keys.reduce((obj, key) => obj[key], target)[last] = value;
+}
+
+function readValue(el) {
+  if (el.type === 'checkbox') return el.checked;
+  if (el.dataset.type === 'int') return el.value === '' ? null : Math.max(0, parseInt(el.value, 10) || 0);
+  if (el.dataset.type === 'count') return Math.max(1, parseInt(el.value, 10) || 1);
+  return el.value;
+}
+
+function updateIconField(input) {
+  const field = input.closest('.field');
+  const img = field.querySelector('img');
+  delete img.dataset.fallback;
+  img.classList.remove('icon-missing');
+  img.src = iconUrl(input.value);
+  field.querySelector('.icon-warning').hidden = true;
+  const q = input.value.trim();
+  field.querySelector('.icon-search').href = q ? `https://www.wowhead.com/icons/name:${encodeURIComponent(q)}` : 'https://www.wowhead.com/icons';
+}
+
+panel.addEventListener('input', event => {
+  const el = event.target;
+  const field = el.dataset.field;
+  if (!field) return;
+  const target = state.edit.kind === 'item' ? currentItem() : state.playstyle;
+  const apply = () => {
+    setPath(target, field, readValue(el));
+    if ('icon' in el.dataset) updateIconField(el);
+    if ('rerender' in el.dataset) {
+      renderPanel();
+      panel.querySelector(`[data-field="${CSS.escape(field)}"]`)?.focus();
+    }
+    changed();
+  };
+  // Icon names are looked up on Wowhead, so wait until typing pauses.
+  if ('icon' in el.dataset) {
+    clearTimeout(iconTimer);
+    pendingIcon = apply;
+    iconTimer = setTimeout(flushIcon, 400);
+  } else {
+    flushIcon();
+    apply();
+  }
+});
+
+function moveItem(step) {
+  const items = state.playstyle.items;
+  const from = items.indexOf(currentItem());
+  const to = from + step;
+  if (to < 0 || to >= items.length) return null;
+  [items[from], items[to]] = [items[to], items[from]];
+  return `[data-panel-action="${step < 0 ? 'move-left' : 'move-right'}"]:not(:disabled)`;
+}
+
+// Each action changes state and may return a selector to focus once the panel is redrawn.
+const panelActions = {
+  'add-bonus': () => {
+    const bonuses = state.playstyle.set.bonuses;
+    bonuses.push({ pieces: (bonuses.at(-1)?.pieces ?? 1) + 1, text: '' });
+    return `[data-field="set.bonuses.${bonuses.length - 1}.text"]`;
+  },
+  'remove-bonus': index => { state.playstyle.set.bonuses.splice(index, 1); },
+  'add-reagent': () => {
+    const reagents = currentItem().catalyst.reagents;
+    reagents.push({ name: '', quantity: 1, icon: '' });
+    return `[data-field="catalyst.reagents.${reagents.length - 1}.name"]`;
+  },
+  'remove-reagent': index => { currentItem().catalyst.reagents.splice(index, 1); },
+  'move-left': () => moveItem(-1),
+  'move-right': () => moveItem(1),
+  duplicate: () => {
+    const items = state.playstyle.items;
+    const at = items.indexOf(currentItem());
+    const copy = { ...structuredClone(items[at]), id: newId() };
+    items.splice(at + 1, 0, copy);
+    state.edit = { kind: 'item', id: copy.id, part: 'tooltip', from: `item:${copy.id}:tooltip` };
+    toast(`Duplicated ${copy.name || 'the item'}`);
+  },
+  delete: () => {
+    const item = currentItem();
+    remember();
+    state.playstyle.items = state.playstyle.items.filter(i => i !== item);
+    closeEditor(false);
+    toast(`Deleted ${item.name || 'the item'}`, { undo: true });
+  },
+};
+
+panel.addEventListener('click', event => {
+  const button = event.target.closest('[data-panel-action]');
+  if (!button) return;
+  flushIcon();
+  const action = button.dataset.panelAction;
+  if (action === 'close') {
+    closeEditor();
+    return;
+  }
+  const focus = panelActions[action](Number(button.dataset.index));
+  changed();
+  renderPanel();
+  if (focus) panel.querySelector(focus)?.focus();
+});
+
+/* ---------- icons that don't exist ---------- */
+function onIconError(event) {
+  const img = event.target;
+  if (!(img instanceof HTMLImageElement) || img.dataset.fallback) return;
+  img.dataset.fallback = '1';
+  img.classList.add('icon-missing');
+  img.src = iconUrl(FALLBACK_ICON, img.src.includes('/medium/') ? 'medium' : 'large');
+  img.closest('.field')?.querySelector('.icon-warning')?.removeAttribute('hidden');
+}
+stage.addEventListener('error', onIconError, true);
+panel.addEventListener('error', onIconError, true);
+
+/* ---------- clicking the sheet ---------- */
+inner.addEventListener('click', event => {
+  const el = event.target.closest('[data-edit]');
+  if (el) openEditor(el.dataset.edit);
+});
+inner.addEventListener('keydown', event => {
+  if ((event.key === 'Enter' || event.key === ' ') && event.target.matches('[role="button"][data-edit]')) {
+    event.preventDefault();
+    openEditor(event.target.dataset.edit);
+  }
+});
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Escape') return;
+  const menu = document.querySelector('details.menu[open]');
+  if (menu) {
+    menu.open = false;
+    menu.querySelector('summary').focus();
+  } else if (!panel.hidden) {
+    closeEditor();
+  }
+});
+
+/* ---------- undo ---------- */
+function remember() {
+  undoSnapshot = structuredClone(state.playstyle);
+}
+
+function replacePlaystyle(next, message) {
+  flushIcon();
+  remember();
+  state.playstyle = next;
+  closeEditor(false);
+  changed();
+  toast(message, { undo: true });
+}
+
+function undo() {
+  if (!undoSnapshot) return;
+  state.playstyle = undoSnapshot;
+  undoSnapshot = null;
+  closeEditor(false);
+  changed();
+  toast('Undone');
+}
+
+/* ---------- toolbar ---------- */
+const actions = {
+  new: () => {
+    replacePlaystyle(blankPlaystyle(), 'Started a new playstyle');
+    openEditor('playstyle');
+  },
+  open: () => fileInput.click(),
+  save: () => {
+    flushIcon();
+    const filename = `${slug(state.playstyle.name)}.json`;
+    download(new Blob([serialize(state.playstyle)], { type: 'application/json' }), filename);
+    toast(`Saved ${filename}`);
+  },
+  'export-sheet': () => runExport(() => exportSheet(state.playstyle)),
+  'export-item': () => runExport(() => exportTooltip(state.playstyle, currentItem() ?? state.playstyle.items[0])),
+  'export-all': () => runExport(() => exportAllTooltips(state.playstyle)),
+  undo,
+};
+
+document.addEventListener('click', event => {
+  const actionEl = event.target.closest('[data-action]');
+  const exampleEl = event.target.closest('[data-example]');
+  for (const menu of document.querySelectorAll('details.menu[open]')) {
+    if (!menu.contains(event.target) || actionEl || exampleEl) menu.open = false;
+  }
+  if (actionEl) actions[actionEl.dataset.action]();
+  if (exampleEl) loadExample(exampleEl.dataset.example, exampleEl.textContent);
+});
+
+async function loadExample(file, name) {
+  try {
+    replacePlaystyle(await fetchExample(file), `Loaded ${name}`);
+  } catch {
+    toast(`Couldn't load the ${name} example.`);
+  }
+}
+
+async function loadExampleList() {
+  try {
+    const res = await fetch('examples/index.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const list = await res.json();
+    examplesList.innerHTML = list
+      .map(x => `<button type="button" data-example="${esc(x.file)}">${esc(x.name)}</button>`)
+      .join('');
+  } catch {
+    examplesList.innerHTML = '<p class="menu-note">The examples couldn\'t be loaded.</p>';
+  }
+}
+
+/* ---------- export ---------- */
+async function runExport(job) {
+  if (state.exporting) return;
+  flushIcon();
+  state.exporting = true;
+  const summary = exportMenu.querySelector('summary span');
+  exportMenu.setAttribute('aria-busy', 'true');
+  summary.textContent = 'Exporting…';
+  try {
+    const { blob, filename } = await job();
+    download(blob, filename);
+    toast(`Saved ${filename}`);
+  } catch (err) {
+    console.error(err);
+    const reason = err instanceof Event ? "an image couldn't be loaded" : err?.message || 'unknown error';
+    toast(`Export failed: ${reason}`);
+  } finally {
+    state.exporting = false;
+    exportMenu.removeAttribute('aria-busy');
+    summary.textContent = 'Export';
+  }
+}
+
+/* ---------- opening files ---------- */
+async function openFile(file) {
+  try {
+    replacePlaystyle(parsePlaystyle(await file.text()), `Opened ${file.name}`);
+  } catch (err) {
+    toast(err instanceof NotAPlaystyleError ? err.message : `Couldn't read ${file.name}.`);
+  }
+}
+
+fileInput.addEventListener('change', () => {
+  const [file] = fileInput.files;
+  fileInput.value = '';
+  if (file) openFile(file);
+});
+
+const hasFiles = event => [...(event.dataTransfer?.types ?? [])].includes('Files');
+let dragDepth = 0;
+window.addEventListener('dragenter', event => {
+  if (!hasFiles(event)) return;
+  dragDepth += 1;
+  dropHint.hidden = false;
+});
+window.addEventListener('dragleave', event => {
+  if (!hasFiles(event)) return;
+  dragDepth -= 1;
+  if (dragDepth <= 0) {
+    dragDepth = 0;
+    dropHint.hidden = true;
+  }
+});
+window.addEventListener('dragover', event => {
+  if (hasFiles(event)) event.preventDefault();
+});
+window.addEventListener('drop', event => {
+  if (!hasFiles(event)) return;
+  event.preventDefault();
+  dragDepth = 0;
+  dropHint.hidden = true;
+  const [file] = event.dataTransfer.files;
+  if (file) openFile(file);
+});
+
+/* ---------- toast ---------- */
+function toast(message, { undo = false } = {}) {
+  toastEl.innerHTML = `<span>${esc(message)}</span>${undo ? '<button type="button" data-action="undo">Undo</button>' : ''}`;
+  toastEl.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { toastEl.hidden = true; }, TOAST_MS);
+}
+
+/* ---------- examples ---------- */
+async function fetchExample(file) {
+  const res = await fetch(`examples/${encodeURIComponent(file)}`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return migrate(await res.json());
+}
+
+/* ---------- start ---------- */
+async function start() {
+  let saved = null;
+  let note = '';
+  try { saved = localStorage.getItem(STORAGE_KEY); } catch { /* storage blocked: start from the example */ }
+  if (saved) {
+    try { state.playstyle = parsePlaystyle(saved); } catch { note = "Your last session couldn't be restored, so here's the Mage example instead."; }
+  }
+  if (!state.playstyle) {
+    try { state.playstyle = await fetchExample(FIRST_EXAMPLE); } catch { state.playstyle = blankPlaystyle(); }
+  }
+  renderSheet();
+  if (note) toast(note);
+  loadExampleList();
+}
+
+// Closing or hiding the tab must not lose an edit that's still waiting on a timer.
+function saveNow() {
+  if (!state.playstyle) return;
+  flushIcon();
+  clearTimeout(saveTimer);
+  saveLocal();
+}
+window.addEventListener('pagehide', saveNow);
+document.addEventListener('visibilitychange', () => { if (document.hidden) saveNow(); });
+
+new ResizeObserver(fitStage).observe(stage);
+document.fonts.ready.then(fitStage);
+start();

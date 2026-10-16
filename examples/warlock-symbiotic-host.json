@@ -1,0 +1,124 @@
+{
+  "version": 2,
+  "name": "Warlock - Symbiotic Host",
+  "description": "Refocusing the Warlock from a backline summoner into a shape-shifting, demonic hybrid. You no longer fight alongside your demon; instead, you absorb it as an equippable power matrix, merging with its essence to gain an entirely new suite of physical capabilities.",
+  "set": {
+    "name": "Flesh-Pact Regalia",
+    "bonuses": [
+      {
+        "pieces": 3,
+        "text": "Purge Host now also fears all enemies within 8 yards for 3 seconds."
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "warlock-symbiotic-host-1",
+      "name": "Flesh-Pact Girdle",
+      "rarity": "epic",
+      "itemLevel": 645,
+      "binding": "",
+      "slot": "Waist",
+      "type": "",
+      "stats": "+110 Stamina\n+95 Intellect\nEquip: Unlocks Demonic Synthesis. Absorbing a Voidwalker grants plate-level armor and melee cleaves. Absorbing an Imp grants rapid-fire mobility spells. Absorbing a Felhunter grants magic immunity and silences.",
+      "flavor": "The cold-iron clasps barely contain the void within.",
+      "icon": "inv_belt_22",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "drop",
+        "baseName": "Ruptured Binding Girdle",
+        "details": "Drops from a demonic lieutenant in a mid-tier dungeon."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Leatherworker & Blacksmith",
+        "details": "Replace the corrupted leather with purified hide, then forge cold-iron clasps to prevent demonic energy leaks.",
+        "reagents": [
+          {
+            "name": "Purified Demon Hide",
+            "quantity": 4,
+            "icon": "inv_misc_leatherscrap_11"
+          },
+          {
+            "name": "Cold-Iron Clasp",
+            "quantity": 2,
+            "icon": "inv_ingot_03"
+          }
+        ]
+      }
+    },
+    {
+      "id": "warlock-symbiotic-host-2",
+      "name": "Flesh-Pact Mantle",
+      "rarity": "epic",
+      "itemLevel": 645,
+      "binding": "",
+      "slot": "Shoulder",
+      "type": "",
+      "stats": "+125 Stamina\n+100 Intellect\nEquip: Alters Life Tap. Instead of draining health for mana, it rapidly drains mana to temporarily halt the lethal health-drain of the Symbiotic state.",
+      "flavor": "Stitched with silver thread so it cannot feed on its master.",
+      "icon": "inv_shoulder_25",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "drop",
+        "baseName": "Parasitic Mantle of the Summoner",
+        "details": "A rare drop from an elite demon roaming an endgame corrupted zone."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Alchemist & Tailor",
+        "details": "Brew a powerful sedative to put the living fabric to sleep, then stitch it closed with silver thread.",
+        "reagents": [
+          {
+            "name": "Fabric Sedative",
+            "quantity": 1,
+            "icon": "inv_potion_01"
+          },
+          {
+            "name": "Spool of Silver Thread",
+            "quantity": 6,
+            "icon": "inv_fabric_silk_01"
+          }
+        ]
+      }
+    },
+    {
+      "id": "warlock-symbiotic-host-3",
+      "name": "Cleansed Pact-Breaker's Sickle",
+      "rarity": "legendary",
+      "itemLevel": 660,
+      "binding": "",
+      "slot": "1-Handed Sickle",
+      "type": "",
+      "stats": "+160 Stamina\n+140 Intellect\nEquip: Unlocks Purge Host. Instantly ends Demonic Synthesis, violently ejecting the demon from your body to cause a massive AoE shadow explosion.",
+      "flavor": "Tempered in holy water to direct its explosive malice strictly outward.",
+      "icon": "inv_weapon_shortblade_06",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "drop",
+        "baseName": "Pact-Breaker's Sickle",
+        "details": "A guaranteed drop from a high-ranking dreadlord raid boss."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Blacksmith & Enchanter",
+        "details": "Re-temper the cursed blade in holy water, and bind the hilt with outward-facing warding runes.",
+        "reagents": [
+          {
+            "name": "Vial of Holy Water",
+            "quantity": 3,
+            "icon": "inv_potion_03"
+          },
+          {
+            "name": "Warding Rune",
+            "quantity": 4,
+            "icon": "inv_misc_rune_01"
+          }
+        ]
+      }
+    }
+  ]
+}

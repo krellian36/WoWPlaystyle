@@ -1,220 +1,192 @@
-# WoWPlaystyle: Modular Playstyles Design Document
-### A Mechanical Proof-of-Concept for Horizontal Progression in Legacy MMOs
+# WoWPlaystyle design document
 
-This document is an architectural and mechanical proof-of-concept exploring **Horizontal Progression** within legacy MMO engines. Rather than expanding vertical power (stat bloat, gear score treadmills), these designs treat equipment as **operational verbs** that grant new mechanical toolsets. 
+These nine playstyles are about horizontal progression: gear that changes what your class does, not how big its numbers are. Each set drops broken, and it takes several professions working together to restore it, so a playstyle is something the whole server economy builds.
 
-Every playstyle below is constructed using **"Digital Duct Tape"**: repurposing legacy engine primitives (invisible dummy entities, aura stacking, collision boxes, and coordinate translation) without altering core server physics. Furthermore, each set requires cross-discipline crafting cooperation across the entire player economy to restore.
+Every design also comes with a note on how an old MMO engine could run it with tools it already has: invisible dummy NPCs, hidden auras, collision objects and coordinate swaps. None of it needs new server physics.
 
----
+Every playstyle here is also in the app under **Examples**, with the same item names and text.
 
-## Table of Contents
-1. [Paladin: Sunbreaker Artillery](#1-paladin-sunbreaker-artillery)
-2. [Rogue: Frontline Chirurgeon](#2-rogue-frontline-chirurgeon)
-3. [Warlock: Symbiotic Host](#3-warlock-symbiotic-host)
-4. [Warrior: Lodestone Colossus](#4-warrior-lodestone-colossus)
-5. [Shaman: Harmonic Resonance Weaver](#5-shaman-harmonic-resonance-weaver)
-6. [Priest: Twilight Arbiter](#6-priest-twilight-arbiter)
-7. [Mage: Arcane Architect](#7-mage-arcane-architect)
-8. [Hunter: Apex Tactician](#8-hunter-apex-tactician)
-9. [Druid: Grove Architect](#9-druid-grove-architect)
+## Contents
 
----
+1. [Paladin - Sunbreaker Artillery](#paladin---sunbreaker-artillery)
+2. [Rogue - Frontline Chirurgeon](#rogue---frontline-chirurgeon)
+3. [Warlock - Symbiotic Host](#warlock---symbiotic-host)
+4. [Warrior - Lodestone Colossus](#warrior---lodestone-colossus)
+5. [Shaman - Harmonic Resonance Weaver](#shaman---harmonic-resonance-weaver)
+6. [Priest - Twilight Arbiter](#priest---twilight-arbiter)
+7. [Mage - Arcane Architect](#mage---arcane-architect)
+8. [Hunter - Apex Tactician](#hunter---apex-tactician)
+9. [Druid - Grove Architect](#druid---grove-architect)
 
-## 1. Paladin: Sunbreaker Artillery
-**Concept:** Shifts the Paladin from a front-line melee fighter into a heavy holy mortar platform, anchoring into position to bombard distant coordinates.
+## Paladin - Sunbreaker Artillery
 
-### The Core Mechanics
-* **The Shift:** Consecration is no longer cast at the Paladin's feet; it becomes a long-range ground-targeted mortar strike.
-* **The Synergy:** Anchoring in place charges holy ammunition over time. Casting Judgment detonates active Consecration zones for massive holy cleave damage.
-* **The Payoff:** Expending maximum holy charges unleashes a continuous orbital barrage, decimating clustered enemy formations while locking the Paladin in place.
+The Paladin stops being a melee fighter and becomes a holy mortar. You pick a spot, hold your position and shell the enemy from range.
 
-### The Sunbreaker Armaments
-* **Trinket (Solar Lens):** Converts Consecration into a targeted ballistic strike.
-  * *Restoration:* Master Jewelcrafter cuts a resonant focus crystal; Master Blacksmith builds a reinforced brass gimbal mount.
-* **Boots (Anchor Sabatons):** Locks movement in exchange for rapid holy energy generation.
-  * *Restoration:* Blacksmith forges heavy grounding spurs; Leatherworker crafts shock-absorbing hydraulic lining.
-* **Weapon (Judgment Mortar):** Detonates active zones with Judgment.
-  * *Restoration:* Engineer crafts rifled bore housing; Enchanter imbues solar combustion glyphs.
+Judgment becomes a ground-targeted strike, and Consecration follows it, landing wherever your last Judgment hit. Holy Shock on an enemy standing in that Consecration blows the whole zone up and resets Judgment, so the rotation is a loop of marking ground and detonating it. With all three pieces, every ground-targeted spell gets a 20% larger radius.
 
-### Legacy Engine Audit ("Digital Duct Tape")
-* **Ballistic Consecration:** Standard ground-target reticle passes $(X, Y, Z)$ coordinates. Server instantly spawns an invisible, unkillable dummy NPC that immediately channels standard Consecration at that coordinate point.
-* **Impact Detonation:** Judgment applies a hidden aura trigger. If an entity with the aura stands within radius of an active Consecration dummy ID, it fires a localized Holy Nova proc.
+Set: Sunbreaker Artillery. (3) The radius of your ground-targeted spells is increased by 20%.
 
----
+| Item | Slot | What it does | Restored by |
+|---|---|---|---|
+| Restored Sun-Lens | Trinket | Converts Judgment into a ground-targeted AoE ability. | Master Alchemist & Enchanter |
+| Pauldrons of the Dawn | Shoulder | Causes Consecration to deploy at the location of your most recent Judgment. | Master Blacksmith & Leatherworker |
+| Scepter of the Sun King | 1-Handed Mace | Casting Holy Shock on an enemy standing in Consecration detonates the zone for massive AoE damage and resets Judgment. | Alchemist & Enchanter |
 
-## 2. Rogue: Frontline Chirurgeon
-**Concept:** Redefines the Rogue from a stealth burst assassin into a high-tempo battlefield medic who uses stealth and mobility to perform triage.
+### How it could work in the old engine
 
-### The Core Mechanics
-* **The Shift:** Combo points are generated through aggressive melee combat but expended on surgical support abilities and sutures applied to allies.
-* **The Synergy:** Vanish and Sprint become rapid repositioning tools to reach critical raid members with immunity to interception.
-* **The Payoff:** Expending 5 combo points on an ally applies adrenaline stimulants, converting incoming lethal damage into a staggered bleed while granting temporary haste.
+- The ground-target reticle passes X, Y and Z coordinates. The server spawns an invisible, unkillable dummy NPC there, and the dummy channels an ordinary Consecration.
+- Holy Shock checks whether its target stands inside the radius of an active Consecration dummy. If it does, it fires a local Holy Nova proc at that spot.
 
-### The Chirurgeon's Kit
-* **Gloves (Surgical Grips):** Allows combo points to be spent on friendly targets for burst triage.
-  * *Restoration:* Master Leatherworker treats fine supple leather; Alchemist bathes material in sterile numbing tincture.
-* **Belt (Cauterizing Rig):** Vanish resets mobility cooldowns and cleanses debuffs from nearby allies.
-  * *Restoration:* Master Engineer crafts quick-release pneumatic valves; Blacksmith fits cold-iron buckle clamps.
-* **Daggers (Scalpel Pair):** Melee attacks siphon vitality charges to fuel healing finishers.
-  * *Restoration:* Master Blacksmith hones obsidian-honed edges; Enchanter etches life-stealing transfer runes.
+## Rogue - Frontline Chirurgeon
 
-### Legacy Engine Audit ("Digital Duct Tape")
-* **Friendly Finisher Targeting:** Finisher spells check target friendly flag. If target is friendly, regular combo points on the player's internal resource counter are consumed, triggering an instant positive healing script.
-* **Damage Stagger:** Native debuff that converts single-instance burst damage into periodic dot ticks, utilizing the engine's built-in DoT mitigation tables.
+The Rogue becomes a combat medic who stays in the melee scrum. Your attacks build up healing, and your finishers spend it on allies.
 
----
+Combo-point generators also store Vials, healing charges sized by the damage you deal. Finishers can then target a friendly player, and the heal grows with the combo points and Vials you put into it. The daggers add Defibrillating Strike as an emergency heal, and your auto-attacks keep topping up the lowest-health ally next to you. With the full set, Defibrillating Strike also shields its target.
 
-## 3. Warlock: Symbiotic Host
-**Concept:** Refocuses the Warlock from a backline pet-manager into a shape-shifting, demonic hybrid who treats summoned demons as equippable loadout matrices.
+Set: Blood-Alchemist's Kit. (3) Defibrillating Strike applies a 15% damage reduction shield to the target for 6 seconds.
 
-### The Core Mechanics
-* **The Shift:** Demonic Synthesis consumes the active demon, transforming the Warlock into a hybrid melee/caster form tailored to the absorbed pet (Voidwalker = plate tank; Imp = rapid mobility fire caster; Felhunter = magic counter).
-* **The Synergy:** Maintenance drain constantly ticks down health, countered by an inverted Life Tap that burns mana to halt the physical degradation.
-* **The Payoff:** Purge Host violently ejects the demon outward in a point-blank AoE shadow detonation.
+| Item | Slot | What it does | Restored by |
+|---|---|---|---|
+| Syringe-Belt of the Apothecary | Waist | Converts combo-point generators into abilities that passively store healing charges (Vials) based on damage dealt. | Master Engineer & Alchemist |
+| Triage Goggles | Head | Unlocks the ability to target allies with finishing moves, scaling the heal based on the combo points and Vials allocated to the cast. | Master Jewelcrafter & Leatherworker |
+| Bone-Saws of the Flesh-Shaper | Dual Daggers | Enables the Defibrillating Strike emergency heal. Auto-attacks passively heal the lowest-health ally in your immediate melee vicinity. | Master Blacksmith & Enchanter |
 
-### The Flesh-Pact Regalia
-* **Belt (Ruptured Binding Girdle):** Unlocks Demonic Synthesis.
-  * *Restoration:* Leatherworker replaces corrupted leather with purified demon hide; Blacksmith forges cold-iron clasps.
-* **Shoulders (Parasitic Mantle of the Summoner):** Inverts Life Tap into a mana-draining stabilizer.
-  * *Restoration:* Alchemist brews a potent sedative to suppress the living fabric; Tailor stitches containment seams with silver thread.
-* **Weapon (Pact-Breaker's Sickle):** Unlocks Purge Host AoE detonation and demon re-summoning.
-  * *Restoration:* Blacksmith re-tempers blade in consecrated holy water; Enchanter carves outwardly directed warding runes.
+### How it could work in the old engine
 
-### Legacy Engine Audit ("Digital Duct Tape")
-* **Demonic Synthesis:** Pet is despawned via script; player is granted a specific "Stance/Form" aura utilizing Druid shapeshifting mechanics that hot-swaps action bars and applies armor multipliers.
-* **Purge Host:** Macro script sequence: 1) Cancels shapeshift aura; 2) Casts instant player-centered Arcane Explosion clone with shadow damage ID; 3) Executes instant-cast, zero-mana pet summon script.
+- Finishers check the target's friendly flag. On a friendly target they still spend the combo points from the player's normal resource counter, then run an instant healing script instead of a damage one.
 
----
+## Warlock - Symbiotic Host
 
-## 4. Warrior: Lodestone Colossus
-**Concept:** Moves the Warrior from a basic brawler into an active combat tracker managing spatial geometry and pawn positioning.
+The Warlock stops fighting next to a demon and starts wearing one. You absorb your pet and take on its strengths in a hybrid demonic form.
 
-### The Core Mechanics
-* **The Shift:** Charge and Intercept become ground-targeted or ally-targeted, applying kinetic barrier shields upon impact.
-* **The Synergy:** Thunder Clap spends high Rage to drop a localized Gravity Well that physically draws in all nearby enemies over time.
-* **The Payoff:** Striking an enemy inside the well with Shield Slam detonates the vortex, launching enemies upward with a shockwave stun.
+Demonic Synthesis consumes the active demon. A Voidwalker gives you plate-level armor and melee cleaves, an Imp gives you rapid-fire mobility spells, and a Felhunter gives you magic immunity and silences. The form drains your health while it lasts, and Life Tap now runs backwards, burning mana to hold the drain off. When you're done, Purge Host throws the demon out of your body in a shadow explosion. With all three pieces, that explosion also fears everything nearby.
 
-### The Gravitic Bastion Set
-* **Trinket (Depleted Lodestone Core):** Converts Thunder Clap into a persistent pull zone.
-  * *Restoration:* Master Engineer builds gyroscopic containment shell; Blacksmith forges heavy alloy belt mounting.
-* **Boots (Crater-Forged Treads):** Grants coordinate targeting and ally shields to Charge/Intercept.
-  * *Restoration:* Leatherworker crafts impact-dampening interior padding; Alchemist synthesizes kinetic dampening gel.
-* **Shield (Fractured Meteorite Bulwark):** Enables Shield Slam detonation and vertical knock-up.
-  * *Restoration:* Jewelcrafter cuts flawless resonating diamond core; Enchanter binds gem to meteorite iron with gravity runes.
+Set: Flesh-Pact Regalia. (3) Purge Host now also fears all enemies within 8 yards for 3 seconds.
 
-### Legacy Engine Audit ("Digital Duct Tape")
-* **The Gravity Well:** Continuous physical vacuum dragging breaks legacy server ticks. Instead, Thunder Clap spawns an invisible, unkillable "Anchor" NPC pulsing an unavoidable AoE taunt, overriding mob AI pathing to force them to run directly inward.
-* **Shockwave Detonation:** Shield Slam despawns Anchor dummy and executes a native Z-axis velocity impulse (identical to devilsaur stomp scripts) rather than horizontal vector calculations.
+| Item | Slot | What it does | Restored by |
+|---|---|---|---|
+| Flesh-Pact Girdle | Waist | Unlocks Demonic Synthesis. Absorbing a Voidwalker grants plate-level armor and melee cleaves. Absorbing an Imp grants rapid-fire mobility spells. Absorbing a Felhunter grants magic immunity and silences. | Master Leatherworker & Blacksmith |
+| Flesh-Pact Mantle | Shoulder | Alters Life Tap. Instead of draining health for mana, it rapidly drains mana to temporarily halt the lethal health-drain of the Symbiotic state. | Alchemist & Tailor |
+| Cleansed Pact-Breaker's Sickle | 1-Handed Sickle | Unlocks Purge Host. Instantly ends Demonic Synthesis, violently ejecting the demon from your body to cause a massive AoE shadow explosion. | Master Blacksmith & Enchanter |
 
----
+### How it could work in the old engine
 
-## 5. Shaman: Harmonic Resonance Weaver
-**Concept:** Transforms the Shaman from a static party buffer into an active signal processor coordinating overlapping waveforms across the battlefield.
+- Demonic Synthesis despawns the pet by script and gives the player a stance or form aura, borrowing the Druid shapeshift system to swap action bars and apply armor multipliers.
+- Purge Host is a three-step script: cancel the form aura, cast an instant player-centered Arcane Explosion clone that deals shadow damage, then resummon the pet instantly at no mana cost.
 
-### The Core Mechanics
-* **The Shift:** Totems act as continuous elemental frequency oscillators rather than passive aura sticks.
-* **The Synergy:** Overlapping waves create zones of "Constructive Interference" where players gain extreme amplified effects.
-* **The Payoff:** Hitting an active totem with Phase Shift violently reverses its polarity, turning healing frequencies into offensive concussive blasts.
+## Warrior - Lodestone Colossus
 
-### The Earth-Singer's Signal Chain
-* **Trinket (Dormant Tuning Fork of the Ancestors):** Converts totems into frequency emitters.
-  * *Restoration:* Blacksmith reheats and straightens fork tines; Jewelcrafter mounts amplification quartz.
-* **Chest (Vestments of the Phase-Catcher):** Expands frequency radius and highlights active interference nodes.
-  * *Restoration:* Leatherworker insulates grounding liner; Engineer weaves conductive copper antenna array through the scales.
-* **Weapon (Thunder-Striker's Baton):** Enables melee-range polarity inversion.
-  * *Restoration:* Enchanter charges shaft with pure lightning; Alchemist applies impact-sparking reactive resin.
+The Warrior becomes the one who decides where everyone stands. You pull enemies into place, leap to wherever you're needed, and then blow the cluster apart.
 
-### Legacy Engine Audit ("Digital Duct Tape")
-* **Constructive Interference:** Older engines cannot calculate intersecting waveforms. Instead, each totem pulses a standard invisible aura radius. Server runs conditional checks: if a unit possesses Aura A (Fire) and Aura B (Water), the game awards hidden Aura C (Resonance).
-* **Polarity Inversion:** Friendly totem auto-attacks are blocked natively. Baton strike is an instant-cast utility spell that despawns the target totem NPC and spawns an alternate-ID totem in identical coordinates with inverse spell scripts.
+Thunder Clap spends extra Rage to leave a Gravity Well that keeps dragging enemies inward. Charge and Intercept can target a spot on the ground or an ally, and you land with a kinetic barrier. Once the well has done its work, Shield Slam detonates it and launches everything inside upward with a stun. With all three pieces, the launch goes 5 yards higher.
 
----
+Set: Gravitic Bastion. (3) Shield Slam detonations knock enemies an additional 5 yards into the air.
 
-## 6. Priest: Twilight Arbiter
-**Concept:** Moves the Priest away from binary Light/Shadow specializations into a dual-target lifeline coordinator managing linked damage and healing.
+| Item | Slot | What it does | Restored by |
+|---|---|---|---|
+| The Singularity Anchor | Trinket | Alters Thunder Clap to consume extra Rage, creating a persistent Gravity Well effect that pulls enemies inward. | Master Engineer & Blacksmith |
+| Kinetic Sabatons | Feet | Converts Charge and Intercept into coordinate-targeted or ally-targeted abilities, applying a kinetic barrier upon landing. | Master Leatherworker & Alchemist |
+| The Event Horizon | Shield | Detonates active Gravity Wells with Shield Slam, converting absorbed kinetic energy into an AoE knock-up and stun. | Master Jewelcrafter & Enchanter |
 
-### The Core Mechanics
-* **The Shift:** Twilight Tether links an ally and an enemy together in biological parity.
-* **The Synergy:** Damage taken by the enemy heals the linked ally; direct heals pumped into the ally damage the enemy.
-* **The Payoff:** Sever the Scales snaps all active links, executing the enemy if the ally's health is lower, or burst-healing the ally if the enemy's health is lower.
+### How it could work in the old engine
 
-### The Scales of Equilibrium Set
-* **Trinket (Frayed Cord of Duality):** Replaces Mind Flay with the primary tether mechanism.
-  * *Restoration:* Tailor re-spins woven light and shadow threads; Jewelcrafter mounts onyx-pearl stabilizing clasp.
-* **Headpiece (Mitre of the Weeping Judge):** Allows up to three simultaneous tether pairs.
-  * *Restoration:* Blacksmith reforges lattice silver; Alchemist prepares neutralizing cleansing solvent.
-* **Weapon (Gavel of the Final Verdict):** Unlocks Sever the Scales execution mechanic.
-  * *Restoration:* Engineer balances mace head with internal gyroscopic weight; Enchanter imbues tether-severing enchantments.
+- Dragging enemies continuously would break old server ticks. Instead, Thunder Clap spawns an invisible, unkillable Anchor NPC that pulses an unavoidable AoE taunt, so mob AI paths straight in toward it.
+- Shield Slam despawns the Anchor and applies a vertical velocity impulse, the same kind the devilsaur stomp scripts use, with no horizontal vector math.
 
-### Legacy Engine Audit ("Digital Duct Tape")
-* **Dual Targeting:** Legacy engines only select one target at a time. The system splits the tether into a two-step cast: Step 1 casts "Anchor" buff on an ally; Step 2 casts "Tether" debuff on enemy. Backend assigns paired index IDs.
-* **Combat Hook:** Combat log listener detects damage on the tethered enemy ID and fires a direct heal trigger at the paired anchor ally ID. Sever the Scales runs a basic HP% comparison check before triggering the respective spell ID.
+## Shaman - Harmonic Resonance Weaver
 
----
+The Shaman's totems become signal emitters instead of passive buff sticks. You place them so their waves overlap, and you flip them between healing and harm.
 
-## 7. Mage: Arcane Architect
-**Concept:** Transforms the Mage from a static ranged turret into a spatial network engineer routing spells through dynamic waypoints.
+Each totem sends out a visible pulse wave. Where waves from different totems overlap, players inside get a much stronger effect, and the chest piece makes those overlap zones bigger and easier to see. The baton lets you strike your own totem to reverse it, turning a healing wave into a sonic blast or the other way round. With all three pieces, that strike also makes the totem fire an extra echo wave at once.
 
-### The Core Mechanics
-* **The Shift:** Direct targeting is abandoned; the Mage deploys a network of floating Arcane Relays across the field.
-* **The Synergy:** Spells cast into a relay duplicate and route across all connected nodes, firing around line-of-sight obstacles.
-* **The Payoff:** Feedback Loop overloads all active nodes, creating a chaining web of destruction before shattering the network.
+Set: Earth-Singer's Signal Chain. (3) Striking a totem with Phase Shift causes it to emit an immediate secondary echo wave.
 
-### The Ley-Line Weaver Set
-* **Trinket (Shattered Prism of the Router):** Replaces Arcane Missiles with Deploy Relay.
-  * *Restoration:* Jewelcrafter facets internal geometry; Enchanter aligns internal leyline channels.
-* **Shoulders (Singed Mantle of the Node-Walker):** Converts Blink into an instantaneous positional swap with any active relay.
-  * *Restoration:* Tailor weaves phase-spider silk lining; Alchemist infuses stabilizing mana wash.
-* **Staff (Severed Conduit of the Nexus):** Unlocks the Feedback Loop overloading detonation.
-  * *Restoration:* Enchanter carves mana routing bore; Engineer installs heat-dissipation venting ports.
+| Item | Slot | What it does | Restored by |
+|---|---|---|---|
+| Resonant Tuning Fork | Trinket | Converts standard totems into frequency emitters, creating a visual pulse wave on the ground. | Master Blacksmith & Jewelcrafter |
+| Grounded Vestments of the Phase-Catcher | Chest | Increases the radius of totem waveforms and visually illuminates the interference patterns on the ground. | Master Leatherworker & Engineer |
+| Charged Thunder-Striker's Baton | 1-Handed Mace | Unlocks Phase Shift. Strike an active totem to violently reverse its polarity, converting heals to offensive sonic booms or vice versa. | Enchanter & Alchemist |
 
-### Legacy Engine Audit ("Digital Duct Tape")
-* **Relay Casting:** Relays spawn as stationary, friendly totem/pet NPCs. Targeting a relay intercepts the cast and commands all active relay IDs to simultaneously cast the identical spell at the closest hostile entity in range.
-* **Node Blink:** Engine executes standard coordinate extraction: captures $(X_1, Y_1, Z_1)$ of the Mage and $(X_2, Y_2, Z_2)$ of the targeted relay, swapping positions in a single server tick.
-* **Feedback Loop:** Employs native Chain Lightning logic: Relay A casts to Relay B, which jumps to Relay C with expanded beam thickness and AoE radius before triggering unit death scripts.
+### How it could work in the old engine
 
----
+- Old engines can't calculate intersecting waves. Each totem pulses an ordinary invisible aura instead, and the server checks combinations: a unit with the Fire aura and the Water aura also gets a hidden Resonance aura.
+- The engine blocks auto-attacks on friendly totems, so the baton strike is an instant utility spell. It despawns the targeted totem and spawns a different totem ID at the same coordinates, with the opposite spell scripts.
 
-## 8. Hunter: Apex Tactician
-**Concept:** Treats the battlefield like a tactical chess board, turning pet automation into coordinate-based pawn control and traps into an interconnected grid.
+## Priest - Twilight Arbiter
 
-### The Core Mechanics
-* **The Shift:** Standard pet attack commands are replaced by Pawn Command (instant coordinate pet teleportation).
-* **The Synergy:** Traps do not detonate on enemy contact; pets moving over traps absorb their elemental payload to become living hazards.
-* **The Payoff:** Enemies damaged within the grid receive a "Bloodied" status overlay. Pet melee strikes against Bloodied targets consume charges for devastating executions and reset trap cooldowns.
+The Priest stops picking between Light and Shadow and starts moving health between people. You tie an ally and an enemy together so that what happens to one happens in reverse to the other.
 
-### The Tracker’s Gambit Set
-* **Trinket (Tangled Spool of the Broodmother):** Disables auto-detonation and links traps into a grid zone.
-  * *Restoration:* Alchemist dissolves corrosive venom coatings; Engineer builds tension-calibrated deployment housing.
-* **Headpiece (Cracked Whistle of the Beast-Lord):** Replaces pet commands with Pawn Command.
-  * *Restoration:* Jewelcrafter carves resonant whistle crystal; Leatherworker binds whistle with reinforced beast hide strap.
-* **Crossbow (Splintered Arbalest of the Blood-Tracker):** Applies Bloodied execution status overlay.
-  * *Restoration:* Blacksmith casts high-tension firing cam; Enchanter weaves quarry-tracking runes into string.
+Twilight Tether replaces Mind Flay. Damage to the tethered enemy heals the ally, and healing the ally damages the enemy. The headpiece lets you keep three tethers up at once. Sever the Scales snaps all of them: whichever side is worse off decides whether it executes the enemy or burst-heals the ally. With all three pieces, a successful execute gives back half the mana.
 
-### Legacy Engine Audit ("Digital Duct Tape")
-* **Pawn Translation:** Uses ground-reticle targeting to pass destination coordinates, instantly translating pet coordinates $(X, Y, Z)$ and clearing default follow-path logic.
-* **Trap Grid:** Traps act as stationary aura emitters. Stepping onto trap coordinates despawns the trap game object and applies an elemental aura buff to the pet.
-* **Bloodied Check:** Server runs a continuous loop on enemies within trap aura radii. If $HP\% < 20\%$, Bloodied debuff is applied. Pet melee strikes check for both the pet elemental buff and target Bloodied state before triggering execution code.
+Set: Scales of Equilibrium. (3) Sever the Scales refunds 50% of its mana cost if it successfully executes an enemy.
 
----
+| Item | Slot | What it does | Restored by |
+|---|---|---|---|
+| Cord of Duality | Trinket | Replaces Mind Flay with Twilight Tether, allowing you to link an ally and an enemy. Damage to the enemy heals the ally, and healing the ally damages the enemy. | Master Tailor & Jewelcrafter |
+| Mitre of the Weeping Judge | Head | Allows you to maintain up to three separate Twilight Tethers simultaneously. | Master Blacksmith & Alchemist |
+| Gavel of the Final Verdict | 1-Handed Mace | Unlocks Sever the Scales. Snaps all active tethers instantly to execute the enemy or burst heal the ally based on health deficits. | Master Engineer & Enchanter |
 
-## 9. Druid: Grove Architect
-**Concept:** Shifts the Druid from a reactive healer into a proactive terraformer who dynamically manipulates encounter geometry and artificial choke points.
+### How it could work in the old engine
 
-### The Core Mechanics
-* **The Shift:** Entangling Roots constructs an impassable, Line-of-Sight blocking Bramble Wall along a coordinate line.
-* **The Synergy:** Casting AoE spells directly on the wall triggers Ecosystem Mutations (Tranquility creates a healing canopy; Hurricane spawns striking lashers).
-* **The Payoff:** Controlled Burn ignites constructs with Moonfire, causing massive AoE fire detonations and leaving fertile ash that permanently boosts ally speed and resource regeneration.
+- Old engines only let you hold one target, so the tether is a two-step cast: an Anchor buff on the ally, then a Tether debuff on the enemy. The server gives the pair matching index IDs.
+- A combat log listener watches for damage on the tethered enemy's ID and fires a direct heal at the paired ally's ID. Sever the Scales compares the two health percentages and casts whichever spell ID applies.
 
-### The Overgrowth Engine Set
-* **Trinket (Fossilized Seed of the Progenitor):** Converts Entangling Roots into Bramble Wall generation.
-  * *Restoration:* Alchemist synthesizes volatile germination serum; Leatherworker crafts reinforced loam-pouch.
-* **Shoulders (Petrified Bark-Weave Mantle):** Enables Ecosystem Mutations on deployed walls.
-  * *Restoration:* Tailor weaves living dream-silk into joints; Enchanter animates bark with nature spirits.
-* **Staff (Branch of the Ashen World-Tree):** Unlocks Controlled Burn detonation and fertile ash buffing.
-  * *Restoration:* Blacksmith constructs thermal-venting ironwood grip; Jewelcrafter inserts radiant heat sun-stone.
+## Mage - Arcane Architect
 
-### Legacy Engine Audit ("Digital Duct Tape")
-* **Bramble Wall:** Older engines cannot dynamically alter terrain navmeshes. The spell calculates the cast angle and spawns an array of 3 to 5 overlapping, static game objects possessing collision meshes and native "Blocks Line of Sight" flags.
-* **Ecosystem Mutation:** Proximity check triggers on the wall objects when caught in Hurricane/Tranquility radius, instantly despawning default wall entities and spawning alternate-ID entities with damage or healing auras.
-* **Controlled Burn:** Moonfire acts as an interaction trigger that despawns the wall collision meshes, plays an explosion particle effect, and spawns an invisible "Ash Patch" dummy NPC pulsing movement speed and mana regeneration auras.
+The Mage stops casting straight at targets and builds a network instead. You place floating relays around the fight and route spells through them from behind cover.
+
+Deploy Relay replaces Arcane Missiles and lets you place up to three crystal nodes. A spell cast into a relay is copied out of every node in the network, so you can hit things you can't see. Blink no longer moves you forward; it swaps you with any relay. Feedback Loop overloads the whole network so the relays chain damage between each other before they shatter. With all three pieces, Feedback Loop hits 15% harder on anything inside the network.
+
+Set: Ley-Line Weaver. (3) Feedback Loop deals 15% increased damage to targets caught inside the relay network.
+
+| Item | Slot | What it does | Restored by |
+|---|---|---|---|
+| Prism of the Router | Trinket | Replaces Arcane Missiles with Deploy Relay, allowing you to place up to three floating crystal nodes. | Master Jewelcrafter & Enchanter |
+| Mantle of the Node-Walker | Shoulder | Upgrades Blink. Instead of blinking a set distance forward, you instantly swap physical positions with any active Arcane Relay. | Master Tailor & Alchemist |
+| Conduit of the Nexus | Staff | Unlocks Feedback Loop. Overload the network, causing deployed relays to chain massive damage between each other before shattering. | Master Enchanter & Engineer |
+
+### How it could work in the old engine
+
+- Relays are stationary friendly NPCs, like totems or pets. Targeting a relay intercepts the cast and orders every active relay ID to cast the same spell at the nearest enemy in range.
+- Node Blink reads the X, Y, Z position of the Mage and of the chosen relay, then swaps them in a single server tick.
+- Feedback Loop reuses Chain Lightning logic: relay A casts to relay B, which jumps to relay C with a thicker beam and a larger radius, and then the relays run their death scripts.
+
+## Hunter - Apex Tactician
+
+The Hunter treats the fight like a board game. Your pet stops running on its own AI and becomes a piece you move, and your traps link into a grid.
+
+Traps no longer go off when an enemy steps on them; they link into a grid that controls the area. Pawn Command replaces the normal pet attack orders, so you send the pet to an exact spot, and when it walks over a trap it soaks up the trap's element. Enemies badly hurt inside the grid become Bloodied, and the pet can execute them. With all three pieces, each execution speeds the pet's attacks up by 30% for 10 seconds.
+
+Set: Tracker's Gambit. (3) Executing a Bloodied target grants your pet 30% increased attack speed for 10 seconds.
+
+| Item | Slot | What it does | Restored by |
+|---|---|---|---|
+| Spool of the Broodmother | Trinket | Prevents traps from triggering automatically and allows them to link together into a grid. | Master Alchemist & Engineer |
+| Whistle of the Beast-Lord | Head | Replaces standard pet attack commands with Pawn Command, allowing precise coordinate targeting and trap absorption. | Master Jewelcrafter & Leatherworker |
+| Arbalest of the Blood-Tracker | Crossbow | Applies the 'Bloodied' status to enemies heavily damaged within the trap grid, enabling the pet's execution attack. | Master Blacksmith & Enchanter |
+
+### How it could work in the old engine
+
+- Pawn Command uses the ground reticle to pass a destination, moves the pet's X, Y, Z coordinates there instantly and clears its default follow path.
+- Traps are stationary aura emitters. When the pet steps onto a trap's coordinates, the trap object despawns and the pet gets that element as an aura buff.
+- The server loops over enemies inside trap aura radii and applies the Bloodied debuff to any below 20% health. Pet melee attacks check for both the elemental buff and the Bloodied debuff before running the execution code.
+
+## Druid - Grove Architect
+
+The Druid reshapes the battlefield itself. You grow walls that block movement and line of sight, change what they do, and burn them down when you need the space back.
+
+Entangling Roots now grows a Bramble Wall that blocks movement and line of sight. Hurricane on a wall turns it into a Lasher-Bramble that deals damage, and Tranquility turns it into a Blooming-Bramble that heals. Moonfire sets a wall on fire: it vanishes, deals burst damage, and leaves an Ash Patch that gives movement speed and resource regeneration. With all three pieces, allies standing in Ash also get 15% haste.
+
+Set: Vestments of the Grove. (3) Allies standing inside an Ash Patch gain 15% increased haste.
+
+| Item | Slot | What it does | Restored by |
+|---|---|---|---|
+| Seed of the Bramble Wall | Trinket | Alters Entangling Roots to spawn a targeted Bramble Wall composed of physical collision and LoS-blocking geometry. | Master Herbalist & Alchemist |
+| Mantle of the Ecosystem | Shoulder | Casting Hurricane or Tranquility on a Bramble Wall mutates it into a damage-dealing Lasher-Bramble or a restorative Blooming-Bramble. | Master Tailor & Enchanter |
+| Staff of the Controlled Burn | Staff | Casting Moonfire on a Bramble Wall incinerates it, instantly removing LoS blockers, dealing burst damage, and leaving an Ash Patch that grants movement speed and resource regeneration. | Master Enchanter & Engineer |
+
+### How it could work in the old engine
+
+- Old engines can't change the navmesh at runtime. The spell reads the cast angle and spawns a row of three to five overlapping static objects that have collision and the engine's "blocks line of sight" flag.
+- Each wall object checks whether it is inside a Hurricane or Tranquility radius. If it is, the default wall objects despawn and alternate IDs with damage or healing auras spawn in their place.
+- Moonfire on a wall despawns its collision objects, plays an explosion effect and spawns an invisible Ash Patch NPC that pulses movement speed and mana regeneration auras.

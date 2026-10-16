@@ -1,68 +1,55 @@
 # WoWPlaystyle
 
-A Horizontal Progression Sandbox for Legacy MMO Theorycrafting
+Design a World of Warcraft class set and get images that look like they came out of the game: a Wowhead-style tooltip for every item, and a sheet showing where each piece drops and which crafters restore it.
 
-WoWPlaystyle is a browser-based design tool built to help players, modders, and theorycrafters engineer entirely new playstyles for classic MMO architectures. Instead of relying on vertical power creep or simple stat bloat, this app provides a visual canvas to design cross-discipline loadouts using existing legacy engine mechanics—what we call "Digital Duct Tape."
+Made by krellian36. Fan-made and not affiliated with Blizzard Entertainment. Item icons load from Wowhead.
 
-You can access the live tool directly from your browser here: https://wo-w-playstyle.vercel.app/
+## Using it
 
-## The Concept
+- The sheet is your playstyle. Click any part of it to edit that part: the title, the set bar, an item's tooltip, its crafting step, or where it drops.
+- **Examples** loads one of the nine playstyles from the [design document](DESIGN_DOCUMENT.md).
+- **Save** downloads the playstyle as a `.json` file. **Open**, or dropping a file on the page, loads one back. Files saved by the first version of WoWPlaystyle open too.
+- **Export** saves the sheet as a PNG, the selected item's tooltip as a PNG with a transparent background, or every tooltip in a ZIP.
+- Your work stays in this browser between visits. Nothing is sent anywhere.
 
-Traditional MMO progression forces players into a rigid, vertical climb. WoWPlaystyle explores a different approach: Horizontal Progression.
+### Icons
 
-The goal isn't to make numbers bigger, but to fundamentally alter how a class interacts with the game world. By repurposing legacy engine mechanics—like aura stacking, ground-reticle targeting, and entity swapping—we can design radical new class roles without requiring a developer to rewrite the underlying game engine.
+Icon fields take a Wowhead icon name such as `inv_staff_13`. **Browse Wowhead icons** under the field opens Wowhead's icon list; pick one and copy its name. If no icon has that name, the field says so and the item shows a question mark.
 
-This app serves as your drafting board. Whether you want to turn a Warlock into a shape-shifting melee hybrid or a Warrior into a spatial tactician, this sandbox lets you map out the items, the crafting supply chains, and the engine workarounds required to make it happen.
+### Sets
 
-For an example of each class: https://github.com/krellian36/WoWPlaystyle/tree/main/Playstyle%20Examples 
+The set is defined once, in the set bar: its name and its bonuses. Each item is either in the set or not, and equipped or not. The `(2/3)` count on tooltips, which piece names light up and which bonuses turn green all follow from that.
 
-In each example class folder, a Load JSON can be loaded into your instance of the app to populate data.
+## Files
 
-## Features
+| File | What it holds |
+|---|---|
+| `index.html`, `app.css` | Page and styles |
+| `app.js` | The editor: state, the live sheet, the edit panel, toolbar, autosave |
+| `model.js` | The save format, opening old saves, set rules, stat colours |
+| `render.js` | Tooltip and sheet markup, shared by the editor and the exports |
+| `panel.js` | Edit panel markup |
+| `export.js` | PNG and ZIP export |
+| `examples/` | The nine example playstyles |
+| `vendor/` | html-to-image 1.11.13 and fflate 0.8.2, unmodified |
+| `tests/` | Tests, with the original example files in `tests/fixtures/v1/` |
 
-- **Visual Tooltip Generator:** Create authentic, high-quality item tooltips for your custom gear pieces, complete with stat allocations and unique mechanical effects.
-- **Crafting Supply Chain Flowcharts:** Map out the "Relic Restoration Heist." Visually connect the required server economy professions (Blacksmithing, Tailoring, Alchemy, etc.) needed to restore and assemble your custom loadout.
-- **100% Local & Private:** There is no backend database tracking your ideas. All flowchart building, tooltip generation, and state management happens entirely in your local browser memory.
-- **Save & Load Functionality:** Export your active workspace as a lightweight JSON file to your hard drive, and load it back up anytime to continue tweaking your design.
-- **Image Export:** Instantly export your finished flowcharts and tooltips as clean, watermarked PNG images, ready to be shared directly to Discord or Reddit theorycrafting threads.
-- **Wowhead Integration:** Need an icon for your custom spell or item? The app directs you straight to the Wowhead icon database for easy reference.
+## Running it locally
 
-## Tech Stack
+There's no build step. Serve the folder and open it:
 
-- **Framework:** Next.js / React
-- **Styling:** Tailwind CSS
-- **Hosting:** Vercel (Static Export)
-
-## Running the App Locally
-
-If you want to pull down the repository and run the sandbox on your own machine:
-
-Clone the repository:
-
-```bash
-git clone https://github.com/krellian36/WoWPlaystyle.git
+```
+npx serve .
 ```
 
-Navigate to the project directory:
+Tests use Node's built-in runner (Node 20 or newer):
 
-```bash
-cd WoWPlaystyle
+```
+npm test
 ```
 
-Install the dependencies:
+`node scripts/check-icons.mjs` checks every icon name in the examples against Wowhead and refreshes `tests/fixtures/known-icons.txt`.
 
-```bash
-npm install
-```
+## Credits
 
-Start the development server:
-
-```bash
-npm run dev
-```
-
-Open http://localhost:3000 in your browser.
-
-## Feedback & Community
-
-* **Read the Full Design Document:** [Modular Playstyles Design Document](./DESIGN_DOCUMENT.md)
+Marcellus by Astigmatic (SIL Open Font License, see `fonts/OFL.txt`). html-to-image and fflate are MIT licensed.
