@@ -1,0 +1,124 @@
+{
+  "version": 2,
+  "name": "Paladin - Sunbreaker Artillery",
+  "description": "This playstyle completely abandons the standard Paladin toolkit of heavy melee strikes and reactive healing, replacing it with mechanics that require strict positioning and resource management to bombard enemies from afar.",
+  "set": {
+    "name": "Sunbreaker Artillery",
+    "bonuses": [
+      {
+        "pieces": 3,
+        "text": "The radius of your ground-targeted spells is increased by 20%."
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "paladin-sunbreaker-artillery-1",
+      "name": "Restored Sun-Lens",
+      "rarity": "epic",
+      "itemLevel": 60,
+      "binding": "",
+      "slot": "Trinket",
+      "type": "",
+      "stats": "+120 Intellect\n+85 Haste\nEquip: Converts Judgment into a ground-targeted AoE ability.",
+      "flavor": "A focused crystal that bends the light to your will.",
+      "icon": "inv_12_profession_jewelcrafting_glass_reagent_raw_pink",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "drop",
+        "baseName": "Fractured Sun-Lens",
+        "details": "Drops from the final boss of a mid-tier Scarlet Crusade-themed dungeon."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Alchemist & Enchanter",
+        "details": "Polish the fractured lens, then infuse it with dusk.",
+        "reagents": [
+          {
+            "name": "Max-Level Rare Gems",
+            "quantity": 3,
+            "icon": "inv_misc_gem_bloodgem_01"
+          },
+          {
+            "name": "Binding Magic Dust",
+            "quantity": 5,
+            "icon": "inv_misc_dust_02"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paladin-sunbreaker-artillery-2",
+      "name": "Pauldrons of the Dawn",
+      "rarity": "epic",
+      "itemLevel": 60,
+      "binding": "",
+      "slot": "Shoulder",
+      "type": "",
+      "stats": "+140 Intellect\n+95 Stamina\nEquip: Causes Consecration to deploy at the location of your most recent Judgment.",
+      "flavor": "Forged to cast shadows far across the battlefield.",
+      "icon": "inv_shoulder_leather_raidmonk_n_01",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "drop",
+        "baseName": "Scorched Pauldrons of the Dawn",
+        "details": "A rare drop from an elite mob in a max-level contested zone."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Blacksmith & Leatherworker",
+        "details": "Combine ingots of the sun and the protection of fire.",
+        "reagents": [
+          {
+            "name": "Sun-Touched Ingots",
+            "quantity": 8,
+            "icon": "inv_ingot_03"
+          },
+          {
+            "name": "Fire-Resistant Scales",
+            "quantity": 12,
+            "icon": "inv_misc_monsterscales_15"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paladin-sunbreaker-artillery-3",
+      "name": "Scepter of the Sun King",
+      "rarity": "legendary",
+      "itemLevel": 60,
+      "binding": "",
+      "slot": "1-Handed Mace",
+      "type": "",
+      "stats": "+210 Intellect\n+115 Critical Strike\nEquip: Casting Holy Shock on an enemy standing in Consecration detonates the zone for massive AoE damage and resets Judgment.",
+      "flavor": "The hollow core now burns with the fury of a dying star.",
+      "icon": "trade_archaeology_jeweleddwarfscepter",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "drop",
+        "baseName": "Hollowed Scepter of the Sun King",
+        "details": "A guaranteed drop from a specific mini-boss within the first endgame raid tier."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Alchemist & Enchanter",
+        "details": "Fill the hollowed inset and amplify with holy power.",
+        "reagents": [
+          {
+            "name": "Liquid Light Suspension",
+            "quantity": 1,
+            "icon": "inv_potion_147"
+          },
+          {
+            "name": "World Boss Holy Essence",
+            "quantity": 3,
+            "icon": "inv_elemental_primal_mana"
+          }
+        ]
+      }
+    }
+  ]
+}

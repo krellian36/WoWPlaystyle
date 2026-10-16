@@ -1,0 +1,124 @@
+{
+  "version": 2,
+  "name": "Druid - Grove Architect",
+  "description": "Transforming the Druid into a master of battlefield geography. By dynamically generating physical collision geometry and Line of Sight (LoS) blockers, you can completely rewrite the physical arena and manipulate the ecosystem to trap, damage, or heal.",
+  "set": {
+    "name": "Vestments of the Grove",
+    "bonuses": [
+      {
+        "pieces": 3,
+        "text": "Allies standing inside an Ash Patch gain 15% increased haste."
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "druid-grove-architect-1",
+      "name": "Seed of the Bramble Wall",
+      "rarity": "epic",
+      "itemLevel": 645,
+      "binding": "",
+      "slot": "Trinket",
+      "type": "",
+      "stats": "+140 Intellect\n+100 Haste\nEquip: Alters Entangling Roots to spawn a targeted Bramble Wall composed of physical collision and LoS-blocking geometry.",
+      "flavor": "An aggressive, fast-growing strain of ironwood.",
+      "icon": "inv_misc_herb_04",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "drop",
+        "baseName": "Dormant Bramble Seed",
+        "details": "Drops from an overgrowth monstrosity in a mid-tier nature dungeon."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Herbalist & Alchemist",
+        "details": "Cultivate the seed with enchanted water and fortified soil to awaken its rapid-growth properties.",
+        "reagents": [
+          {
+            "name": "Enchanted Spring Water",
+            "quantity": 5,
+            "icon": "inv_potion_01"
+          },
+          {
+            "name": "Fortified Un'Goro Soil",
+            "quantity": 2,
+            "icon": "inv_misc_dust_06"
+          }
+        ]
+      }
+    },
+    {
+      "id": "druid-grove-architect-2",
+      "name": "Mantle of the Ecosystem",
+      "rarity": "epic",
+      "itemLevel": 645,
+      "binding": "",
+      "slot": "Shoulder",
+      "type": "",
+      "stats": "+130 Intellect\n+115 Mastery\nEquip: Casting Hurricane or Tranquility on a Bramble Wall mutates it into a damage-dealing Lasher-Bramble or a restorative Blooming-Bramble.",
+      "flavor": "Life adapts to the weather it is given.",
+      "icon": "inv_shoulder_20",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "drop",
+        "baseName": "Withered Mantle of the Ecosystem",
+        "details": "A rare drop from an elite ancient in an endgame forested zone."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Tailor & Enchanter",
+        "details": "Weave living vines into the mantle and infuse it with nature magic to restore its vitality.",
+        "reagents": [
+          {
+            "name": "Living Vine Thread",
+            "quantity": 4,
+            "icon": "inv_misc_herb_11"
+          },
+          {
+            "name": "Dust of Restoration",
+            "quantity": 3,
+            "icon": "inv_misc_dust_01"
+          }
+        ]
+      }
+    },
+    {
+      "id": "druid-grove-architect-3",
+      "name": "Staff of the Controlled Burn",
+      "rarity": "legendary",
+      "itemLevel": 660,
+      "binding": "",
+      "slot": "Staff",
+      "type": "",
+      "stats": "+195 Intellect\n+140 Critical Strike\nEquip: Casting Moonfire on a Bramble Wall incinerates it, instantly removing LoS blockers, dealing burst damage, and leaving an Ash Patch that grants movement speed and resource regeneration.",
+      "flavor": "Destruction is just the first step of cultivation.",
+      "icon": "inv_staff_12",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "drop",
+        "baseName": "Charred Branch of the Firelands",
+        "details": "Raid boss drop from a corrupted fiery treant."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Enchanter & Engineer",
+        "details": "Carve druidic runes into the charred wood and bind a core of living flame to control the incineration.",
+        "reagents": [
+          {
+            "name": "Living Flame Core",
+            "quantity": 1,
+            "icon": "inv_elemental_primal_fire"
+          },
+          {
+            "name": "Heat-Resistant Brackets",
+            "quantity": 2,
+            "icon": "inv_misc_gear_01"
+          }
+        ]
+      }
+    }
+  ]
+}

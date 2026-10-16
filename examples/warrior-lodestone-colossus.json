@@ -1,0 +1,124 @@
+{
+  "version": 2,
+  "name": "Warrior - Lodestone Colossus",
+  "description": "This playstyle shifts the Warrior from a brute-force brawler into an active combat tracker. You are no longer just watching health bars; you are managing the encounter's spatial geometry and dictating exactly where enemies and allies are allowed to be.",
+  "set": {
+    "name": "Gravitic Bastion",
+    "bonuses": [
+      {
+        "pieces": 3,
+        "text": "Shield Slam detonations knock enemies an additional 5 yards into the air."
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "warrior-lodestone-colossus-1",
+      "name": "The Singularity Anchor",
+      "rarity": "epic",
+      "itemLevel": 60,
+      "binding": "",
+      "slot": "Trinket",
+      "type": "",
+      "stats": "+150 Strength\n+120 Stamina\nEquip: Alters Thunder Clap to consume extra Rage, creating a persistent Gravity Well effect that pulls enemies inward.",
+      "flavor": "A dormant core awakened to warp the battlefield.",
+      "icon": "inv_misc_enggizmos_27",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "crafted",
+        "baseName": "Depleted Lodestone Core",
+        "details": "Drops from an elemental or golem boss in a mid-tier, Titan-themed dungeon (like Uldaman or Ulduar)."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Engineer & Blacksmith",
+        "details": "",
+        "reagents": [
+          {
+            "name": "Gyroscopic Containment Shell",
+            "quantity": 1,
+            "icon": "inv_misc_gear_01"
+          },
+          {
+            "name": "Heavy Outer Casing",
+            "quantity": 1,
+            "icon": "inv_ingot_05"
+          }
+        ]
+      }
+    },
+    {
+      "id": "warrior-lodestone-colossus-2",
+      "name": "Kinetic Sabatons",
+      "rarity": "epic",
+      "itemLevel": 60,
+      "binding": "",
+      "slot": "Feet",
+      "type": "",
+      "stats": "+120 Strength\n+140 Stamina\nEquip: Converts Charge and Intercept into coordinate-targeted or ally-targeted abilities, applying a kinetic barrier upon landing.",
+      "flavor": "Heavy enough to shatter the earth, padded enough to save the wearer.",
+      "icon": "inv_boots_plate_08",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "crafted",
+        "baseName": "Crater-Forged Treads",
+        "details": "A rare drop from a massive elite giant roaming an endgame mountainous zone."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Leatherworker & Alchemist",
+        "details": "",
+        "reagents": [
+          {
+            "name": "Impact-Dampening Padding",
+            "quantity": 2,
+            "icon": "inv_misc_leatherscrap_02"
+          },
+          {
+            "name": "Reactive Kinetic Gel",
+            "quantity": 5,
+            "icon": "inv_potion_51"
+          }
+        ]
+      }
+    },
+    {
+      "id": "warrior-lodestone-colossus-3",
+      "name": "The Event Horizon",
+      "rarity": "legendary",
+      "itemLevel": 60,
+      "binding": "",
+      "slot": "Shield",
+      "type": "",
+      "stats": "+180 Strength\n+220 Stamina\nEquip: Detonates active Gravity Wells with Shield Slam, converting absorbed kinetic energy into an AoE knock-up and stun.",
+      "flavor": "Not even light escapes.",
+      "icon": "inv_shield_48",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "crafted",
+        "baseName": "Fractured Meteorite Bulwark",
+        "details": "A highly contested drop from a physical-damage-heavy raid boss in an endgame tier."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Jewelcrafter & Enchanter",
+        "details": "",
+        "reagents": [
+          {
+            "name": "Flawless Resonating Diamond",
+            "quantity": 1,
+            "icon": "inv_misc_gem_diamond_02"
+          },
+          {
+            "name": "Gravity-Warping Runes",
+            "quantity": 3,
+            "icon": "inv_misc_rune_01"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "version": 2,
+  "name": "Rogue - Frontline Chirurgeon",
+  "description": "Instead of waiting for cast bars to finish from the backline, this playstyle demands that you stay in the thick of the melee scrum. You are actively managing a fluid triage inventory—generating resources through precise offensive strikes and instantly allocating those resources to keep your frontline alive.",
+  "set": {
+    "name": "Blood-Alchemist's Kit",
+    "bonuses": [
+      {
+        "pieces": 3,
+        "text": "Defibrillating Strike applies a 15% damage reduction shield to the target for 6 seconds."
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "rogue-frontline-chirurgeon-1",
+      "name": "Syringe-Belt of the Apothecary",
+      "rarity": "epic",
+      "itemLevel": 645,
+      "binding": "",
+      "slot": "Waist",
+      "type": "",
+      "stats": "+130 Agility\n+100 Stamina\nEquip: Converts combo-point generators into abilities that passively store healing charges (Vials) based on damage dealt.",
+      "flavor": "A micro-pneumatic distribution system, loaded with a permanent base layer of coagulant.",
+      "icon": "inv_belt_14",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "drop",
+        "baseName": "Jammed Syringe-Belt of the Apothecary",
+        "details": "Drops from a mad-scientist or undead boss in a mid-tier dungeon (e.g., Scholomance or a similar gothic instance)."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Engineer & Alchemist",
+        "details": "Rebuild the micro-pneumatic distribution system, while synthesizing and loading a permanent base layer of coagulant into the belt’s primary reservoir.",
+        "reagents": [
+          {
+            "name": "Pneumatic Valve",
+            "quantity": 3,
+            "icon": "inv_misc_gear_01"
+          },
+          {
+            "name": "Coagulant Base",
+            "quantity": 5,
+            "icon": "inv_potion_14"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rogue-frontline-chirurgeon-2",
+      "name": "Triage Goggles",
+      "rarity": "epic",
+      "itemLevel": 645,
+      "binding": "",
+      "slot": "Head",
+      "type": "",
+      "stats": "+140 Agility\n+110 Haste\nEquip: Unlocks the ability to target allies with finishing moves, scaling the heal based on the combo points and Vials allocated to the cast.",
+      "flavor": "A heavy-duty, sterile cowl housing a highly sensitive tracking matrix.",
+      "icon": "inv_helmet_47",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "drop",
+        "baseName": "Shattered Triage Goggles",
+        "details": "A rare drop from a high-value assassination target located deep within a hostile, max-level enemy stronghold."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Jewelcrafter & Leatherworker",
+        "details": "Cut pristine diagnostic prisms to replace the optics, and stitch a heavy-duty, sterile cowl to house the sensitive tracking matrix.",
+        "reagents": [
+          {
+            "name": "Diagnostic Prism",
+            "quantity": 2,
+            "icon": "inv_misc_gem_crystal_01"
+          },
+          {
+            "name": "Sterile Leather Cowl",
+            "quantity": 1,
+            "icon": "inv_misc_leatherscrap_02"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rogue-frontline-chirurgeon-3",
+      "name": "Bone-Saws of the Flesh-Shaper",
+      "rarity": "legendary",
+      "itemLevel": 660,
+      "binding": "",
+      "slot": "Dual Daggers",
+      "type": "",
+      "stats": "+180 Agility\n+120 Critical Strike\nEquip: Enables the Defibrillating Strike emergency heal. Auto-attacks passively heal the lowest-health ally in your immediate melee vicinity.",
+      "flavor": "Purified in an aura of light to extract life without passing on the corruption.",
+      "icon": "inv_weapon_shortblade_12",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "drop",
+        "baseName": "Corroded Bone-Saws of the Flesh-Shaper",
+        "details": "A paired drop from a council-style boss encounter in a major endgame raid."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Blacksmith & Enchanter",
+        "details": "Carefully re-hone the serrated edges using heat-treated raid metals, and bathe the blades in a purifying aura.",
+        "reagents": [
+          {
+            "name": "Heat-Treated Raid Metal",
+            "quantity": 8,
+            "icon": "inv_ingot_06"
+          },
+          {
+            "name": "Purifying Aura Dust",
+            "quantity": 10,
+            "icon": "inv_misc_dust_02"
+          }
+        ]
+      }
+    }
+  ]
+}

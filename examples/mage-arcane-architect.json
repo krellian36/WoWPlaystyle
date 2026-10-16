@@ -1,0 +1,124 @@
+{
+  "version": 2,
+  "name": "Mage - Arcane Architect",
+  "description": "Transforming the Mage from a static ranged caster into a spatial network engineer routing magical artillery through dynamic waypoints. You abandon direct-target casting to deploy a network of Arcane Relays across the battlefield, safely copying and amplifying spells from behind cover.",
+  "set": {
+    "name": "Ley-Line Weaver",
+    "bonuses": [
+      {
+        "pieces": 3,
+        "text": "Feedback Loop deals 15% increased damage to targets caught inside the relay network."
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "mage-arcane-architect-1",
+      "name": "Prism of the Router",
+      "rarity": "epic",
+      "itemLevel": 645,
+      "binding": "",
+      "slot": "Trinket",
+      "type": "",
+      "stats": "+140 Intellect\n+115 Haste\nEquip: Replaces Arcane Missiles with Deploy Relay, allowing you to place up to three floating crystal nodes.",
+      "flavor": "The refocused facets now splinter single beams into a thousand stars.",
+      "icon": "inv_misc_gem_crystal_02",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "drop",
+        "baseName": "Shattered Prism of the Router",
+        "details": "Drops from an arcane anomaly boss in a mid-tier magical dungeon (e.g., Dire Maul or Karazhan crypts)."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Jewelcrafter & Enchanter",
+        "details": "Recut the internal geometry, and realign the local leylines within the stone to allow it to receive spell signals.",
+        "reagents": [
+          {
+            "name": "Flawless Arcane Diamond",
+            "quantity": 1,
+            "icon": "inv_misc_gem_diamond_01"
+          },
+          {
+            "name": "Leyline Dust",
+            "quantity": 5,
+            "icon": "inv_misc_dust_02"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mage-arcane-architect-2",
+      "name": "Mantle of the Node-Walker",
+      "rarity": "epic",
+      "itemLevel": 645,
+      "binding": "",
+      "slot": "Shoulder",
+      "type": "",
+      "stats": "+130 Intellect\n+105 Mastery\nEquip: Upgrades Blink. Instead of blinking a set distance forward, you instantly swap physical positions with any active Arcane Relay.",
+      "flavor": "Physical space is merely a suggestion to those who weave the leys.",
+      "icon": "inv_shoulder_25",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "drop",
+        "baseName": "Singed Mantle of the Node-Walker",
+        "details": "A rare drop from an elite spell-weaver in an endgame crystalline zone."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Tailor & Alchemist",
+        "details": "Weave new phase-spider silk into the lining, while bathing the fabric in a stabilizing mana-potion wash.",
+        "reagents": [
+          {
+            "name": "Phase-Spider Silk",
+            "quantity": 4,
+            "icon": "inv_fabric_silk_02"
+          },
+          {
+            "name": "Stabilizing Mana Wash",
+            "quantity": 2,
+            "icon": "inv_potion_76"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mage-arcane-architect-3",
+      "name": "Conduit of the Nexus",
+      "rarity": "legendary",
+      "itemLevel": 660,
+      "binding": "",
+      "slot": "Staff",
+      "type": "",
+      "stats": "+195 Intellect\n+140 Critical Strike\nEquip: Unlocks Feedback Loop. Overload the network, causing deployed relays to chain massive damage between each other before shattering.",
+      "flavor": "A web of pure destruction, held together by exhausted exhaust vents.",
+      "icon": "inv_staff_13",
+      "inSet": true,
+      "equipped": true,
+      "origin": {
+        "type": "drop",
+        "baseName": "Severed Conduit of the Nexus",
+        "details": "A late-tier raid boss drop."
+      },
+      "catalyst": {
+        "type": "crafting",
+        "professions": "Master Enchanter & Engineer",
+        "details": "Carve a new channel through the wood, and install thermal exhaust vents to prevent the staff from detonating in the Mage's hands.",
+        "reagents": [
+          {
+            "name": "Enchanted Channeling Core",
+            "quantity": 1,
+            "icon": "inv_wand_01"
+          },
+          {
+            "name": "Thermal Exhaust Vent",
+            "quantity": 2,
+            "icon": "inv_misc_gear_01"
+          }
+        ]
+      }
+    }
+  ]
+}
