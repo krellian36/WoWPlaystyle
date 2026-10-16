@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WoWPlaystyle</title>
+<meta name="description" content="Design a World of Warcraft class set and export tooltips and a crafting sheet that look like they came from the game.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="app.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a class="wordmark" href="./">WoWPlaystyle</a>
+  <nav class="bar-actions" aria-label="Playstyle">
+    <details class="menu" id="examples-menu">
+      <summary class="btn">Examples</summary>
+      <div class="menu-list" id="examples-list"><p class="menu-note">Loading…</p></div>
+    </details>
+    <button type="button" class="btn" data-action="new">New</button>
+    <button type="button" class="btn" data-action="open">Open</button>
+    <button type="button" class="btn" data-action="save">Save</button>
+    <details class="menu menu-right" id="export-menu">
+      <summary class="btn primary">Export</summary>
+      <div class="menu-list">
+        <button type="button" data-action="export-sheet">Sheet <small>PNG</small></button>
+        <button type="button" data-action="export-item">Selected item's tooltip <small>PNG</small></button>
+        <button type="button" data-action="export-all">All tooltips <small>ZIP</small></button>
+      </div>
+    </details>
+  </nav>
+  <input type="file" id="file-input" accept=".json,application/json" hidden>
+</header>
+<main class="workspace">
+  <section class="stage" id="stage" aria-label="Sheet. Click any part to edit it.">
+    <div class="stage-inner" id="stage-inner"></div>
+  </section>
+  <aside class="panel" id="panel" aria-labelledby="panel-title" hidden></aside>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<div class="drop-hint" id="drop-hint" hidden>Drop a WoWPlaystyle file to open it</div>
+</body>
+</html>
